@@ -79,6 +79,12 @@ export default {
         type: 'force', // 指定为力导向布局
         preventOverlap: true, // 防止节点重叠
         nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
+      },
+      modes: {
+        default: ['drag-canvas', 'clickSelected', 'drag-node', 'zoom-canvas'],
+        view: [],
+        edit: ['drag-canvas', 'hoverNodeActived', 'hoverAnchorActived', 'dragNode', 'dragEdge',
+          'dragPanelItemAddNode', 'clickSelected', 'deleteItem', 'itemAlign', 'dragPoint', 'brush-select']
       }
     })
     const treeData = {
