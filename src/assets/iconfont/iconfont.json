@@ -1,0 +1,72 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "586777",
+      "name": "bring-to-bottom",
+      "font_class": "bringtobottom",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "586780",
+      "name": "bring-to-top",
+      "font_class": "bringtotop",
+      "unicode": "e6be",
+      "unicode_decimal": 59070
+    },
+    {
+      "icon_id": "1262302",
+      "name": "trash",
+      "font_class": "trash",
+      "unicode": "e726",
+      "unicode_decimal": 59174
+    },
+    {
+      "icon_id": "1393739",
+      "name": "redo",
+      "font_class": "redo",
+      "unicode": "e716",
+      "unicode_decimal": 59158
+    },
+    {
+      "icon_id": "7685330",
+      "name": "undo",
+      "font_class": "undo",
+      "unicode": "e74c",
+      "unicode_decimal": 59212
+    },
+    {
+      "icon_id": "7852029",
+      "name": "paste",
+      "font_class": "paste",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "15536154",
+      "name": "Exit full screen",
+      "font_class": "Exitfullscreen",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "15536160",
+      "name": "Full screen",
+      "font_class": "Fullscreen",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "19418384",
+      "name": "copy",
+      "font_class": "copy",
+      "unicode": "e720",
+      "unicode_decimal": 59168
+    }
+  ]
+}

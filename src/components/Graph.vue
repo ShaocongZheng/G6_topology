@@ -1,5 +1,6 @@
 <template>
   <div>
+      <tool-bar ref="toolbar" :graph="graph"></tool-bar>
       <item-panel></item-panel>
       <div id="canvas" ref="canvas" class="canvasPanel"></div>
   </div>
@@ -7,12 +8,16 @@
 <script>
 import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
+import ToolBar from './Toobar'
 export default {
   components: {
-    ItemPanel: ItemPanel
+    ItemPanel: ItemPanel,
+    ToolBar: ToolBar
   },
   data () {
-    return {}
+    return {
+      graph: null
+    }
   },
   mounted () {
     const data = {
@@ -70,7 +75,27 @@ export default {
         { source: '18', target: '19', label: 'e18-19', weight: 1.6 }
       ]
     }
-    const graph = new G6.Graph({
+    const toolbar = new G6.ToolBar({
+      container: this.$refs.canvas
+      // getContent: () => {
+      //   const _toolbar = this.$refs.toolbar.$el
+      //   return _toolbar
+      // }
+      // handleClick: (code, graph) => {
+      //   if (code === 'add') {
+      //     graph.addItem('node', {
+      //       id: 'node2',
+      //       label: 'node2',
+      //       x: 300,
+      //       y: 150
+      //     })
+      //   } else if (code === 'undo') {
+      //     console.log('undo')
+      //     toolbar.undo()
+      //   }
+      // }
+    })
+    this.graph = new G6.Graph({
       container: 'canvas', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
       width: 800, // Number，必须，图的宽度
       height: 500,
@@ -85,38 +110,14 @@ export default {
         view: [],
         edit: ['drag-canvas', 'hoverNodeActived', 'hoverAnchorActived', 'dragNode', 'dragEdge',
           'dragPanelItemAddNode', 'clickSelected', 'deleteItem', 'itemAlign', 'dragPoint', 'brush-select']
-      }
+      },
+      enabledStack: true,
+      maxStep: 20,
+      plugins: [toolbar]
     })
-    const treeData = {
-      id: '1',
-      children: [
-        {
-          id: '2',
-          children: [{ id: '3' }, { id: '4' }]
-        },
-        {
-          id: '5',
-          children: [
-            { id: '6' },
-            {
-              id: '7',
-              children: [{ id: '8' }, { id: '9' }]
-            }
-          ]
-        },
-        {
-          id: '10',
-          children: [{ id: '11' }]
-        }
-      ]
-    }
 
-    G6.Util.traverseTree(treeData, (subTree) => {
-      subTree.color = '#f00'
-      return true
-    })
-    graph.data(data) // 读取 Step 2 中的数据源到图上
-    graph.render() // 渲染图
+    this.graph.data(data) // 读取 Step 2 中的数据源到图上
+    this.graph.render() // 渲染图
   }
 }
 </script>

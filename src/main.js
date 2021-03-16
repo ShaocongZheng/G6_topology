@@ -5,6 +5,7 @@ import store from './store'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 import './plugins/element.js'
+import './assets/iconfont/iconfont.css'
 
 Vue.use(ViewUI)
 Vue.config.productionTip = false
