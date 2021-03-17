@@ -2,10 +2,10 @@
 $toolbar-height: 40px;
 .toolbar {
   height: $toolbar-height;
+  position: relative;
   box-shadow: 0 0 2px 2px rgb(0 0 0 / 10%);
-
+  z-index: 999;
   ul {
-    position: absolute;
     list-style-type: none;
     padding: 6px;
     // left: 0px;
@@ -16,7 +16,9 @@ $toolbar-height: 40px;
     border-radius: 4px;
     font-size: 12px;
     color: #545454;
-    margin: 0;
+    // margin: 0;
+    text-align: center;
+    display: inline-block;
 
     li {
       float: left;

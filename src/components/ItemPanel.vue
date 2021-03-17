@@ -1,34 +1,42 @@
 <style lang="scss">
-$item-length: 60px;
+$itemBox-length: 20%;
+$img-length: 30px;
 
 .itemPanel {
   flex: 1 30px;
   // border: 1px solid #dcdee2;
+  position: relative;
+  z-index: 998;
+  box-shadow: 0 2px 2px 2px rgb(0 0 0 / 10%);
   .panelContent {
     border-top: 1px solid #dcdee2;
     text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    .itemBox {
+      // display: inline-block;
+      padding: 5px;
+      // margin: 5px;
+      border-radius: 5%;
+      border: 1px solid transparent;
+      cursor: move;
+      flex-basis: 25%;
+      img {
+        width: 100%;
+      }
+      &:hover {
+        // background-color: skyblue;
+        border: 1px solid #dcdee2;
+      }
+    }
   }
   .el-collapse .el-collapse-item {
-    > div[role=tab] > div {
+    > div[role='tab'] > div {
       padding-left: 10px;
       // border: 1px solid #e9e9e9;
       border-left: 0;
-    }
-  }
-  .item {
-    display: inline-block;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5%;
-    border: 1px solid transparent;
-    cursor: move;
-    img {
-      height: $item-length;
-      width: $item-length;
-    }
-    &:hover {
-      // background-color: skyblue;
-      border: 1px solid #dcdee2;
     }
   }
 }
@@ -39,7 +47,7 @@ $item-length: 60px;
       <el-collapse-item title="图标" name="1">
         <div class="panelContent">
           <div
-            class="item"
+            class="itemBox"
             v-for="(item, index) in itemList"
             :key="index + item.name"
           >
@@ -91,7 +99,6 @@ export default {
           name: 'pc',
           url: require('../assets/images/icon/数据服务器_data-server.svg')
         }
-
       ]
     }
   }
