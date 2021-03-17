@@ -54,7 +54,7 @@ $toolbar-height: 40px;
   </div>
 </template>
 <script>
-import { ToolBar } from '../g6/plugins/toolbar.js'
+import ToolBar from '../g6/plugins/toolbar.js'
 export default {
   props: {
     graph: {

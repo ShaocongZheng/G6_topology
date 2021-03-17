@@ -171,4 +171,4 @@ const ToolBar = {
     }
   }
 }
-export { ToolBar }
+export default ToolBar

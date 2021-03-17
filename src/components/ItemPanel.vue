@@ -2,10 +2,11 @@
 $item-length: 60px;
 
 .itemPanel {
-  width: 30%;
+  flex: 1 30px;
   // border: 1px solid #dcdee2;
   .panelContent {
     border-top: 1px solid #dcdee2;
+    text-align: left;
   }
   .el-collapse .el-collapse-item {
     > div[role=tab] > div {
@@ -54,22 +55,43 @@ export default {
   data () {
     return {
       itemList: [
+        // {
+        //   name: 'server',
+        //   url: require('../assets/images/icon/服务器_server.svg')
+        // },
         {
-          name: 'server',
-          url: require('../assets/images/clipart/Server_Tower_128x128.png')
+          name: 'pc',
+          url: require('../assets/images/icon/储存器_memory-one.svg')
         },
         {
           name: 'pc',
-          url: require('../assets/images/clipart/Laptop_128x128.png')
+          url: require('../assets/images/icon/数据服务器_data-server.svg')
         },
         {
           name: 'pc',
-          url: require('../assets/images/clipart/Laptop_128x128.png')
+          url: require('../assets/images/icon/云存储_cloud-storage.svg')
         },
         {
           name: 'pc',
-          url: require('../assets/images/clipart/Laptop_128x128.png')
+          url: require('../assets/images/icon/储存器_memory-one.svg')
+        },
+        {
+          name: 'pc',
+          url: require('../assets/images/icon/数据服务器_data-server.svg')
+        },
+        {
+          name: 'pc',
+          url: require('../assets/images/icon/云存储_cloud-storage.svg')
+        },
+        {
+          name: 'pc',
+          url: require('../assets/images/icon/储存器_memory-one.svg')
+        },
+        {
+          name: 'pc',
+          url: require('../assets/images/icon/数据服务器_data-server.svg')
         }
+
       ]
     }
   }

@@ -1,14 +1,25 @@
+<style lang="scss" scoped>
+#container {
+  height: 100vh;
+
+}
+</style>
 <template>
-  <div>
+  <div id="container">
       <tool-bar ref="toolbar" :graph="graph"></tool-bar>
-      <item-panel></item-panel>
-      <div id="canvas" ref="canvas" class="canvasPanel"></div>
+      <div style="display:flex;height:100%">
+        <item-panel ref="itemPanel"></item-panel>
+      <div id="canvas" ref="canvas" class="canvasPanel" style="flex:4"></div>
+      </div>
+
   </div>
 </template>
 <script>
 import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
-import ToolBar from './Toobar'
+import ToolBar from './Toolbar'
+import registerBehavior from '../g6/behavior'
+registerBehavior(G6)
 export default {
   components: {
     ItemPanel: ItemPanel,
@@ -41,7 +52,9 @@ export default {
         { id: '16', label: 'n16', class: 'c2', x: 1220, y: -34 },
         { id: '17', label: 'n17', class: 'c2', x: -10, y: 954 },
         { id: '18', label: 'n18', class: 'c2', x: 492, y: 123 },
-        { id: '19', label: 'n19', class: 'c2', x: 123, y: -241 }
+        // { id: '19', label: 'n19', class: 'c2', x: 123, y: -241 },
+        { id: '19', label: 'server', class: 'c2', size: 30, type: 'image', img: require('../assets/images/icon/云存储_cloud-storage.svg') }
+
       ],
       edges: [
         { source: '0', target: '1', label: 'e0-1', weight: 1 },
@@ -64,15 +77,13 @@ export default {
         { source: '5', target: '6', label: 'e5-6', weight: 1.9 },
         { source: '7', target: '13', label: 'e7-13', weight: 0.5 },
         { source: '8', target: '14', label: 'e8-14', weight: 0.8 },
-        { source: '9', target: '10', label: 'e9-10', weight: 0.2 },
-        { source: '10', target: '14', label: 'e10-14', weight: 1 },
-        { source: '10', target: '12', label: 'e10-12', weight: 1.2 },
-        { source: '11', target: '14', label: 'e11-14', weight: 1.2 },
-        { source: '12', target: '13', label: 'e12-13', weight: 2.1 },
-        { source: '16', target: '17', label: 'e16-17', weight: 2.5 },
-        { source: '16', target: '18', label: 'e16-18', weight: 3 },
-        { source: '17', target: '18', label: 'e17-18', weight: 2.6 },
-        { source: '18', target: '19', label: 'e18-19', weight: 1.6 }
+        { source: '9', target: '10', label: 'e9-10', weight: 0.2 }
+      ],
+      combos: [
+        {
+          id: '21',
+          padding: 30
+        }
       ]
     }
     const toolbar = new G6.ToolBar({
@@ -95,18 +106,27 @@ export default {
       //   }
       // }
     })
+    const width = document.getElementById('canvas').scrollWidth
+    const height = document.getElementById('canvas').scrollHeight || 500
     this.graph = new G6.Graph({
       container: 'canvas', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
-      width: 800, // Number，必须，图的宽度
-      height: 500,
-      layout: {
-        // Object，可选，布局的方法及其配置项，默认为 random 布局。
-        type: 'force', // 指定为力导向布局
-        preventOverlap: true, // 防止节点重叠
-        nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
+      width: width, // Number，必须，图的宽度
+      height: height,
+      // layout: {
+      //   // Object，可选，布局的方法及其配置项，默认为 random 布局。
+      //   type: 'random', // 指定为力导向布局
+      //   preventOverlap: true, // 防止节点重叠
+      //   nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
+      // },
+      defaultNode: {
+        type: 'image',
+        label: 'AntV Team',
+        size: 30,
+        img: require('../assets/images/icon/云存储_cloud-storage.svg')
+        // 其他配置
       },
       modes: {
-        default: ['drag-canvas', 'clickSelected', 'drag-node', 'zoom-canvas'],
+        default: ['drag-canvas', 'clickSelected', 'drag-node', 'zoom-canvas', 'drag-combo', 'collapse-expand-combo', 'dragToAddItem'],
         view: [],
         edit: ['drag-canvas', 'hoverNodeActived', 'hoverAnchorActived', 'dragNode', 'dragEdge',
           'dragPanelItemAddNode', 'clickSelected', 'deleteItem', 'itemAlign', 'dragPoint', 'brush-select']
@@ -118,6 +138,22 @@ export default {
 
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
+    this.initDragEvent()
+  },
+  methods: {
+    initDragEvent () {
+      const parentNode = this.$refs.itemPanel.$el
+      // const ghost = createDom('<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"' + ' style="opacity:0"/>')
+      const ghost = new Image()
+      ghost.src = require('../assets/images/icon/云存储_cloud-storage.svg')
+      const children = parentNode.querySelectorAll('.panelContent > .item > img')
+      children.forEach(child => {
+        child.addEventListener('dragstart', e => {
+          e.dataTransfer.setDragImage(ghost, 0, 0)
+        })
+      })
+    }
   }
 }
+
 </script>
