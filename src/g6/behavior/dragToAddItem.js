@@ -16,18 +16,16 @@ export default function (G6) {
       }
     },
     onMouseMove (e) {
-      if (this.graph.get('addNodeDragging') || 2 !== 1) {
+      if (this.graph.get('addNodeDragging')) {
         let delegateShape = this.graph.get('addDelegateShape')
         // const addModel = this.graph.get('addModel')
         const width = 40
         const height = 40
-        console.log([e.x, e.y])
         // const point = this.graph.getCanvasByPoint(e.x, e.y)
         const point = {
           x: e.x,
           y: e.y
         }
-        console.log(point)
         const x = point.x
         const y = point.y
         if (!delegateShape) {

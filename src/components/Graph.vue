@@ -1,17 +1,24 @@
 <style lang="scss" scoped>
 #container {
-  height: 100vh;
-
+  height: 100%;
+  display:flex;
+  flex-direction: column;
+  align-items: stretch;
+  .main {
+    flex: 1;
+    display:flex;
+    flex-direction: row;
+    height: 100%;
+  }
 }
 </style>
 <template>
   <div id="container">
       <tool-bar ref="toolbar" :graph="graph"></tool-bar>
-      <div style="display:flex;height:100%">
+      <div class="main">
         <item-panel ref="itemPanel"></item-panel>
-      <div id="canvas" ref="canvas" class="canvasPanel" style="flex:4"></div>
+        <div id="canvas" ref="canvas" class="canvasPanel" style="flex:4"></div>
       </div>
-
   </div>
 </template>
 <script>
@@ -19,6 +26,7 @@ import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
 import registerBehavior from '../g6/behavior'
+import ToolBarPlugin from '../g6/plugins/Toolbar'
 registerBehavior(G6)
 export default {
   components: {
@@ -86,7 +94,7 @@ export default {
         }
       ]
     }
-    const toolbar = new G6.ToolBar({
+    const toolbar = new ToolBarPlugin({
       container: this.$refs.canvas
       // getContent: () => {
       //   const _toolbar = this.$refs.toolbar.$el
@@ -121,12 +129,20 @@ export default {
       defaultNode: {
         type: 'image',
         label: 'AntV Team',
-        size: 30,
-        img: require('../assets/images/icon/云存储_cloud-storage.svg')
+        size: 40,
+        img: require('../assets/images/icon/云存储_cloud-storage.svg'),
+        // img: 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?max_age=31536000',
+        style: {
+          // stroke: 'red',
+          // lineWidth: 0,
+          shadowColor: 'red',
+          shadowBlur: 20
+          // opacity: 0.1
+        }
         // 其他配置
       },
       modes: {
-        default: ['drag-canvas', 'clickSelected', 'drag-node', 'zoom-canvas', 'drag-combo', 'collapse-expand-combo', 'dragToAddItem'],
+        default: ['drag-canvas', 'clickSelected', 'drag-node', 'drag-combo', 'collapse-expand-combo', 'dragToAddItem'],
         view: [],
         edit: ['drag-canvas', 'hoverNodeActived', 'hoverAnchorActived', 'dragNode', 'dragEdge',
           'dragPanelItemAddNode', 'clickSelected', 'deleteItem', 'itemAlign', 'dragPoint', 'brush-select']

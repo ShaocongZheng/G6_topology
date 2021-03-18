@@ -3,7 +3,8 @@ $itemBox-length: 20%;
 $img-length: 30px;
 
 .itemPanel {
-  flex: 1 30px;
+  flex: 1;
+  min-width: 250px;
   // border: 1px solid #dcdee2;
   position: relative;
   z-index: 998;
@@ -22,7 +23,7 @@ $img-length: 30px;
       border-radius: 5%;
       border: 1px solid transparent;
       cursor: move;
-      flex-basis: 25%;
+      flex-basis: 20%;
       img {
         width: 100%;
       }

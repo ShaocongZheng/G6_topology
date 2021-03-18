@@ -27,6 +27,20 @@
       "unicode_decimal": 59174
     },
     {
+      "icon_id": "1336096",
+      "name": "Zoom Out",
+      "font_class": "ZoomOut",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "1336097",
+      "name": "Zoom In",
+      "font_class": "ZoomIn",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
       "icon_id": "1393739",
       "name": "redo",
       "font_class": "redo",
