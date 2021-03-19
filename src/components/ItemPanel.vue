@@ -52,7 +52,7 @@ $img-length: 30px;
             v-for="(item, index) in itemList"
             :key="index + item.name"
           >
-            <img :src="item.url" />
+            <img :src="item.url" :data-model="item.url" />
           </div>
         </div>
       </el-collapse-item>
@@ -70,35 +70,43 @@ export default {
         // },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg')
+          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          model: '储存器_memory-one.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg')
+          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          model: '数据服务器_data-server.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/云存储_cloud-storage.svg')
+          url: require('../assets/images/icon/云存储_cloud-storage.svg'),
+          model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg')
+          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg')
+          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/云存储_cloud-storage.svg')
+          url: require('../assets/images/icon/云存储_cloud-storage.svg'),
+          model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg')
+          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg')
+          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          model: '云存储_cloud-storage.svg'
         }
       ]
     }

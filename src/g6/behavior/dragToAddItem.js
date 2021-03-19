@@ -10,7 +10,7 @@ export default function (G6) {
     },
     getEvents () {
       return {
-        'canvas:mousemove': 'onMouseMove',
+        dragover: 'onMouseMove',
         'canvas:mouseup': 'onMouseUp',
         'canvas:mouseleave': 'onMouseLeave'
       }
@@ -120,6 +120,9 @@ export default function (G6) {
     _addNode (p) {
       if (this.graph.get('addNodeDragging')) {
         const addModel = this.graph.get('addModel')
+        addModel.type = 'image'
+        addModel.img = addModel.modelName
+        console.log(addModel)
         const { clazz = 'userTask' } = addModel
         // type、shape属性同时存在即兼容之前版本的数据，又兼容g6的升级
         // addModel.type = getShapeName(clazz)

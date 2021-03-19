@@ -27,6 +27,7 @@ import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
 import registerBehavior from '../g6/behavior'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
+import DragPanelPlugin from '../g6/plugins/DragPanel'
 registerBehavior(G6)
 export default {
   components: {
@@ -60,7 +61,15 @@ export default {
         { id: '16', label: 'n16', class: 'c2', x: 1220, y: -34 },
         { id: '17', label: 'n17', class: 'c2', x: -10, y: 954 },
         { id: '18', label: 'n18', class: 'c2', x: 492, y: 123 },
-        // { id: '19', label: 'n19', class: 'c2', x: 123, y: -241 },
+        {
+          id: '1',
+          x: 10,
+          y: 10,
+          anchorPoints: [
+            [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
+            [1, 0.5, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }]
+          ]
+        },
         { id: '19', label: 'server', class: 'c2', size: 30, type: 'image', img: require('../assets/images/icon/云存储_cloud-storage.svg') }
 
       ],
@@ -114,6 +123,8 @@ export default {
       //   }
       // }
     })
+    const dragpanel = new DragPanelPlugin()
+    const grid = new G6.Grid()
     const width = document.getElementById('canvas').scrollWidth
     const height = document.getElementById('canvas').scrollHeight || 500
     this.graph = new G6.Graph({
@@ -127,7 +138,7 @@ export default {
       //   nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
       // },
       defaultNode: {
-        type: 'image',
+        type: 'rect',
         label: 'AntV Team',
         size: 40,
         img: require('../assets/images/icon/云存储_cloud-storage.svg'),
@@ -135,10 +146,16 @@ export default {
         style: {
           // stroke: 'red',
           // lineWidth: 0,
-          shadowColor: 'red',
-          shadowBlur: 20
+          // shadowColor: 'red',
+          // shadowBlur: 20
           // opacity: 0.1
-        }
+        },
+        anchorPoints: [
+          [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
+          [0.5, 0, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }],
+          [1, 0.5],
+          [0.5, 1]
+        ]
         // 其他配置
       },
       modes: {
@@ -149,12 +166,12 @@ export default {
       },
       enabledStack: true,
       maxStep: 20,
-      plugins: [toolbar]
+      plugins: [toolbar, grid, dragpanel]
     })
 
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
-    this.initDragEvent()
+    // this.initDragEvent()
   },
   methods: {
     initDragEvent () {
