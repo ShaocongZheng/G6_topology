@@ -138,10 +138,10 @@ export default {
       //   nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
       // },
       defaultNode: {
-        type: 'rect',
+        type: 'image',
         label: 'AntV Team',
         size: 40,
-        img: require('../assets/images/icon/云存储_cloud-storage.svg'),
+        img: require('../../public/images/icon/云存储_cloud-storage.svg'),
         // img: 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?max_age=31536000',
         style: {
           // stroke: 'red',
@@ -155,7 +155,14 @@ export default {
           [0.5, 0, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }],
           [1, 0.5],
           [0.5, 1]
-        ]
+        ],
+        linkPoints: {
+          top: true,
+          bottom: true,
+          left: true,
+          right: true
+        // ... 四个圆的样式可以在这里指定
+        }
         // 其他配置
       },
       modes: {

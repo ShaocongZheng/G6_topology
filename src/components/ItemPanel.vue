@@ -66,46 +66,46 @@ export default {
       itemList: [
         // {
         //   name: 'server',
-        //   url: require('../assets/images/icon/服务器_server.svg')
+        //   url: require('../../public/images/icon/服务器_server.svg')
         // },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          url: require('../../public/images/icon/储存器_memory-one.svg'),
           model: '储存器_memory-one.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          url: require('../../public/images/icon/数据服务器_data-server.svg'),
           model: '数据服务器_data-server.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/云存储_cloud-storage.svg'),
+          url: require('../../public/images/icon/云存储_cloud-storage.svg'),
           model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          url: require('../../public/images/icon/储存器_memory-one.svg'),
           model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          url: require('../../public/images/icon/数据服务器_data-server.svg'),
           model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/云存储_cloud-storage.svg'),
+          url: require('../../public/images/icon/云存储_cloud-storage.svg'),
           model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/储存器_memory-one.svg'),
+          url: require('../../public/images/icon/储存器_memory-one.svg'),
           model: '云存储_cloud-storage.svg'
         },
         {
           name: 'pc',
-          url: require('../assets/images/icon/数据服务器_data-server.svg'),
+          url: require('../../public/images/icon/数据服务器_data-server.svg'),
           model: '云存储_cloud-storage.svg'
         }
       ]
