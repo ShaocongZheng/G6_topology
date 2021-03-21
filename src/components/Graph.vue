@@ -1,12 +1,12 @@
 <style lang="scss" scoped>
 #container {
   height: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   .main {
     flex: 1;
-    display:flex;
+    display: flex;
     flex-direction: row;
     height: 100%;
   }
@@ -14,11 +14,11 @@
 </style>
 <template>
   <div id="container">
-      <tool-bar ref="toolbar" :graph="graph"></tool-bar>
-      <div class="main">
-        <item-panel ref="itemPanel"></item-panel>
-        <div id="canvas" ref="canvas" class="canvasPanel" style="flex:4"></div>
-      </div>
+    <tool-bar ref="toolbar" :graph="graph"></tool-bar>
+    <div class="main">
+      <item-panel ref="itemPanel"></item-panel>
+      <div id="canvas" ref="canvas" class="canvasPanel" style="flex: 4"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -26,6 +26,7 @@ import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
 import registerBehavior from '../g6/behavior'
+import nodeStateStyle from '../g6/config/nodeStateStyle'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
 import DragPanelPlugin from '../g6/plugins/DragPanel'
 registerBehavior(G6)
@@ -66,12 +67,26 @@ export default {
           x: 10,
           y: 10,
           anchorPoints: [
-            [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
-            [1, 0.5, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }]
+            [
+              0,
+              0.5,
+              { type: 'circle', style: { stroke: 'red', fill: 'white' } }
+            ],
+            [
+              1,
+              0.5,
+              { type: 'rect', style: { stroke: 'blue', fill: 'white' } }
+            ]
           ]
         },
-        { id: '19', label: 'server', class: 'c2', size: 30, type: 'image', img: require('../assets/images/icon/云存储_cloud-storage.svg') }
-
+        {
+          id: '19',
+          label: 'server',
+          class: 'c2',
+          size: 30,
+          type: 'image',
+          img: require('../assets/images/icon/云存储_cloud-storage.svg')
+        }
       ],
       edges: [
         { source: '0', target: '1', label: 'e0-1', weight: 1 },
@@ -105,28 +120,14 @@ export default {
     }
     const toolbar = new ToolBarPlugin({
       container: this.$refs.canvas
-      // getContent: () => {
-      //   const _toolbar = this.$refs.toolbar.$el
-      //   return _toolbar
-      // }
-      // handleClick: (code, graph) => {
-      //   if (code === 'add') {
-      //     graph.addItem('node', {
-      //       id: 'node2',
-      //       label: 'node2',
-      //       x: 300,
-      //       y: 150
-      //     })
-      //   } else if (code === 'undo') {
-      //     console.log('undo')
-      //     toolbar.undo()
-      //   }
-      // }
     })
     const dragpanel = new DragPanelPlugin()
     const grid = new G6.Grid()
     const width = document.getElementById('canvas').scrollWidth
     const height = document.getElementById('canvas').scrollHeight || 500
+    G6.registerNode('custom-modelRect', {
+
+    }, 'modelRect')
     this.graph = new G6.Graph({
       container: 'canvas', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
       width: width, // Number，必须，图的宽度
@@ -137,18 +138,49 @@ export default {
       //   preventOverlap: true, // 防止节点重叠
       //   nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
       // },
+      // defaultNode: {
+      //   type: 'image',
+      //   label: 'AntV Team',
+      //   size: 40,
+      //   img: require('../../public/images/icon/云存储_cloud-storage.svg'),
+      //   // img: 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?max_age=31536000',
+      //   style: {
+      //     // stroke: 'red',
+      //     // lineWidth: 0,
+      //     // shadowColor: 'red',
+      //     // shadowBlur: 20
+      //     // opacity: 0.1
+      //   },
+      //   anchorPoints: [
+      //     [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
+      //     [0.5, 0, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }],
+      //     [1, 0.5],
+      //     [0.5, 1]
+      //   ],
+      //   linkPoints: {
+      //     top: true,
+      //     bottom: true,
+      //     left: true,
+      //     right: true
+      //   // ... 四个圆的样式可以在这里指定
+      //   }
+      //   // 其他配置
+      // },
       defaultNode: {
-        type: 'image',
-        label: 'AntV Team',
-        size: 40,
-        img: require('../../public/images/icon/云存储_cloud-storage.svg'),
-        // img: 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?max_age=31536000',
-        style: {
-          // stroke: 'red',
-          // lineWidth: 0,
-          // shadowColor: 'red',
-          // shadowBlur: 20
-          // opacity: 0.1
+        type: 'custom-modelRect',
+        // 其他配置
+        size: [80, 40],
+        logoIcon: {
+          img: require('../../public/images/icon/云存储_cloud-storage.svg'),
+          width: 20,
+          height: 20
+        },
+        lineDash: [1, 1],
+        preRect: {
+          show: false
+        },
+        stateIcon: {
+          show: false
         },
         anchorPoints: [
           [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
@@ -161,21 +193,63 @@ export default {
           bottom: true,
           left: true,
           right: true
-        // ... 四个圆的样式可以在这里指定
+        },
+        style: {
+          stroke: 'rgba(255,255,255,0)',
+          fill: 'rgba(255,255,255,0)'
         }
-        // 其他配置
       },
+      ...nodeStateStyle,
       modes: {
-        default: ['drag-canvas', 'clickSelected', 'drag-node', 'drag-combo', 'collapse-expand-combo', 'dragToAddItem'],
+        default: [
+          'drag-canvas',
+          'clickSelected',
+          'drag-node',
+          'drag-combo',
+          'collapse-expand-combo',
+          'dragToAddItem'
+        ],
         view: [],
-        edit: ['drag-canvas', 'hoverNodeActived', 'hoverAnchorActived', 'dragNode', 'dragEdge',
-          'dragPanelItemAddNode', 'clickSelected', 'deleteItem', 'itemAlign', 'dragPoint', 'brush-select']
+        edit: [
+          'drag-canvas',
+          'hoverNodeActived',
+          'hoverAnchorActived',
+          'dragNode',
+          'dragEdge',
+          'dragPanelItemAddNode',
+          'clickSelected',
+          'deleteItem',
+          'itemAlign',
+          'dragPoint',
+          'brush-select'
+        ]
       },
       enabledStack: true,
       maxStep: 20,
       plugins: [toolbar, grid, dragpanel]
     })
+    // 鼠标进入节点
+    this.graph.on('node:mouseenter', (e) => {
+      const nodeItem = e.item // 获取鼠标进入的节点元素对象
+      this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
+    })
 
+    // 鼠标离开节点
+    this.graph.on('node:mouseleave', (e) => {
+      const nodeItem = e.item // 获取鼠标离开的节点元素对象
+      this.graph.setItemState(nodeItem, 'hover', false) // 设置当前节点的 hover 状态为 false
+    })
+
+    // 点击节点
+    this.graph.on('node:click', (e) => {
+      // 先将所有当前是 click 状态的节点置为非 click 状态
+      const clickNodes = this.graph.findAllByState('node', 'click')
+      clickNodes.forEach((cn) => {
+        this.graph.setItemState(cn, 'click', false)
+      })
+      const nodeItem = e.item // 获取被点击的节点元素对象
+      this.graph.setItemState(nodeItem, 'click', true) // 设置当前节点的 click 状态为 true
+    })
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
     // this.initDragEvent()
@@ -186,14 +260,15 @@ export default {
       // const ghost = createDom('<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"' + ' style="opacity:0"/>')
       const ghost = new Image()
       ghost.src = require('../assets/images/icon/云存储_cloud-storage.svg')
-      const children = parentNode.querySelectorAll('.panelContent > .item > img')
-      children.forEach(child => {
-        child.addEventListener('dragstart', e => {
+      const children = parentNode.querySelectorAll(
+        '.panelContent > .item > img'
+      )
+      children.forEach((child) => {
+        child.addEventListener('dragstart', (e) => {
           e.dataTransfer.setDragImage(ghost, 0, 0)
         })
       })
     }
   }
 }
-
 </script>
