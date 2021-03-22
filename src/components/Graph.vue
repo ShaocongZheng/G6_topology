@@ -25,11 +25,11 @@
 import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
-import registerBehavior from '../g6/behavior'
+import G6Register from '../g6'
 import nodeStateStyle from '../g6/config/nodeStateStyle'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
 import DragPanelPlugin from '../g6/plugins/DragPanel'
-registerBehavior(G6)
+G6Register(G6)
 export default {
   components: {
     ItemPanel: ItemPanel,
@@ -53,32 +53,7 @@ export default {
         { id: '7', label: 'n7', class: 'c1', x: 543, y: -100 },
         { id: '8', label: 'n8', class: 'c1', x: 1, y: 0 },
         { id: '9', label: 'n9', class: 'c1', x: 0, y: -222 },
-        { id: '10', label: 'n10', class: 'c1', x: 435, y: 69 },
-        { id: '11', label: 'n11', class: 'c1', x: 23, y: 10 },
-        { id: '12', label: 'n12', class: 'c1', x: -129, y: 39 },
-        { id: '13', label: 'n13', class: 'c2', x: 234, y: 843 },
-        { id: '14', label: 'n14', class: 'c2', x: -301, y: 129 },
-        { id: '15', label: 'n15', class: 'c2', x: -20, y: -76 },
-        { id: '16', label: 'n16', class: 'c2', x: 1220, y: -34 },
-        { id: '17', label: 'n17', class: 'c2', x: -10, y: 954 },
-        { id: '18', label: 'n18', class: 'c2', x: 492, y: 123 },
-        {
-          id: '1',
-          x: 10,
-          y: 10,
-          anchorPoints: [
-            [
-              0,
-              0.5,
-              { type: 'circle', style: { stroke: 'red', fill: 'white' } }
-            ],
-            [
-              1,
-              0.5,
-              { type: 'rect', style: { stroke: 'blue', fill: 'white' } }
-            ]
-          ]
-        },
+
         {
           id: '19',
           label: 'server',
@@ -167,24 +142,14 @@ export default {
       //   // 其他配置
       // },
       defaultNode: {
-        type: 'custom-modelRect',
+        type: 'imageBox',
         // 其他配置
-        size: [80, 40],
-        logoIcon: {
-          img: require('../../public/images/icon/云存储_cloud-storage.svg'),
-          width: 20,
-          height: 20
-        },
-        lineDash: [1, 1],
-        preRect: {
-          show: false
-        },
-        stateIcon: {
-          show: false
-        },
+        size: 60,
+        iconSize: 30,
+        img: require('../../public/images/icon/云存储_cloud-storage.svg'),
         anchorPoints: [
-          [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
-          [0.5, 0, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }],
+          [0, 0.5],
+          [0.5, 0],
           [1, 0.5],
           [0.5, 1]
         ],
@@ -194,9 +159,12 @@ export default {
           left: true,
           right: true
         },
+        // color: 'rgba(255,255,255,0)',
         style: {
-          stroke: 'rgba(255,255,255,0)',
-          fill: 'rgba(255,255,255,0)'
+          // stroke: 'rgba(255,255,255,0)',
+          fill: 'rgba(55,100,255,0.5)',
+          stroke: 'black'
+          // fill: 'white'
         }
       },
       ...nodeStateStyle,
@@ -207,7 +175,8 @@ export default {
           'drag-node',
           'drag-combo',
           'collapse-expand-combo',
-          'dragToAddItem'
+          'dragToAddItem',
+          'hoverNodeActived'
         ],
         view: [],
         edit: [
@@ -228,28 +197,30 @@ export default {
       maxStep: 20,
       plugins: [toolbar, grid, dragpanel]
     })
-    // 鼠标进入节点
-    this.graph.on('node:mouseenter', (e) => {
-      const nodeItem = e.item // 获取鼠标进入的节点元素对象
-      this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
-    })
+    // // 鼠标进入节点
+    // this.graph.on('node:mouseenter', (e) => {
+    //   const nodeItem = e.item // 获取鼠标进入的节点元素对象
 
-    // 鼠标离开节点
-    this.graph.on('node:mouseleave', (e) => {
-      const nodeItem = e.item // 获取鼠标离开的节点元素对象
-      this.graph.setItemState(nodeItem, 'hover', false) // 设置当前节点的 hover 状态为 false
-    })
+    //   // this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
+    // })
 
-    // 点击节点
-    this.graph.on('node:click', (e) => {
-      // 先将所有当前是 click 状态的节点置为非 click 状态
-      const clickNodes = this.graph.findAllByState('node', 'click')
-      clickNodes.forEach((cn) => {
-        this.graph.setItemState(cn, 'click', false)
-      })
-      const nodeItem = e.item // 获取被点击的节点元素对象
-      this.graph.setItemState(nodeItem, 'click', true) // 设置当前节点的 click 状态为 true
-    })
+    // // 鼠标离开节点
+    // this.graph.on('node:mouseleave', (e) => {
+    //   const nodeItem = e.item // 获取鼠标离开的节点元素对象
+
+    //   this.graph.setItemState(nodeItem, 'hover', false) // 设置当前节点的 hover 状态为 false
+    // })
+
+    // // 点击节点
+    // this.graph.on('node:click', (e) => {
+    //   // 先将所有当前是 click 状态的节点置为非 click 状态
+    //   const clickNodes = this.graph.findAllByState('node', 'click')
+    //   clickNodes.forEach((cn) => {
+    //     this.graph.setItemState(cn, 'click', false)
+    //   })
+    //   const nodeItem = e.item // 获取被点击的节点元素对象
+    //   this.graph.setItemState(nodeItem, 'click', true) // 设置当前节点的 click 状态为 true
+    // })
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
     // this.initDragEvent()
