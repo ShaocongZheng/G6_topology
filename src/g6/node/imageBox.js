@@ -18,59 +18,59 @@ export default function (G6) {
         }
       }
     },
-    // draw (cfg, group) {
-    //   const size = this.getSize(cfg) // 转换成 [width, height] 的模式
-    //   const width = size[0]
-    //   const height = size[1]
-    //   const iconSize = cfg.iconSize
-    //   //  / 1 \
-    //   // 4     2
-    //   //  \ 3 /
-    //   //   const path = [
-    //   //     ['M', 0, 0], // 上部顶点
-    //   //     ['L', width, 0], // 右侧顶点
-    //   //     ['L', width, height], // 下部顶点
-    //   //     ['L', 0, height], // 左侧顶点
-    //   //     ['Z'] // 封闭
-    //   //   ]
-    //   const path = [
-    //     // 左顶点
-    //     ['M', -width / 2, 0],
-    //     // 上弧
-    //     ['A', width / 4, height / 4, 0, 1, 0, width / 2, 0],
-    //     // 下弧
-    //     ['A', width / 4, height / 4, 0, 1, 0, -width / 2, 0]
-    //   ]
-    //   const style = G6Util.mix({}, cfg.style, {
-    //     path: path,
-    //     fill: cfg.style.fill || 'rgba(55,100,255,0)',
-    //     cursor: 'pointer'
-    //   })
+    draw (cfg, group) {
+      const size = this.getSize(cfg) // 转换成 [width, height] 的模式
+      const width = size[0]
+      const height = size[1]
+      const iconSize = cfg.iconSize
+      //  / 1 \
+      // 4     2
+      //  \ 3 /
+      //   const path = [
+      //     ['M', 0, 0], // 上部顶点
+      //     ['L', width, 0], // 右侧顶点
+      //     ['L', width, height], // 下部顶点
+      //     ['L', 0, height], // 左侧顶点
+      //     ['Z'] // 封闭
+      //   ]
+      const path = [
+        // 左顶点
+        ['M', -width / 2, 0],
+        // 上弧
+        ['A', width / 4, height / 4, 0, 1, 0, width / 2, 0],
+        // 下弧
+        ['A', width / 4, height / 4, 0, 1, 0, -width / 2, 0]
+      ]
+      const style = G6Util.mix({}, cfg.style, {
+        path: path,
+        fill: cfg.style.fill || 'rgba(55,100,255,0)',
+        cursor: 'pointer'
+      })
 
-    //   // 添加图片
-    //   const image = group.addShape('image', {
-    //     attrs: {
-    //       x: -iconSize / 2,
-    //       y: -iconSize / 2,
-    //       width: iconSize,
-    //       height: iconSize,
-    //       img: cfg.img
-    //     },
-    //     // must be assigned in G6 3.3 and later versions. it can be any value you want
-    //     name: 'image-shape'
-    //   })
-    //   // 增加一个 path 图形作为 keyShape
-    //   const keyShape = group.addShape('path', {
-    //     attrs: {
-    //       ...style
-    //     },
-    //     draggable: true,
-    //     name: 'diamond-keyShape'
-    //   })
-    //   this.initAnchor(group)
-    //   // 返回 keyShape
-    //   return keyShape
-    // },
+      // 添加图片
+      const image = group.addShape('image', {
+        attrs: {
+          x: -iconSize / 2,
+          y: -iconSize / 2,
+          width: iconSize,
+          height: iconSize,
+          img: cfg.img
+        },
+        // must be assigned in G6 3.3 and later versions. it can be any value you want
+        name: 'image-shape'
+      })
+      // 增加一个 path 图形作为 keyShape
+      const keyShape = group.addShape('path', {
+        attrs: {
+          ...style
+        },
+        draggable: true,
+        name: 'diamond-keyShape'
+      })
+      this.initAnchor(group)
+      // 返回 keyShape
+      return keyShape
+    },
     // afterDraw (cfg, group) {
     //   const iconSize = cfg.iconSize
     //   // 添加图片
@@ -87,36 +87,36 @@ export default function (G6) {
     //   })
     //   this.initAnchor(group)
     // },
-    drawShape (cfg, group) {
-      var style = this.getShapeStyle(cfg)
-      delete style.height
-      delete style.width
-      var keyShape = group.addShape('circle', {
-        attrs: style,
-        className: 'circle-combo',
-        name: 'image-circle',
-        draggable: true
-      })
-      console.log(group)
-      const tmp = group.get('children')[0]
-      const iconSize = cfg.iconSize
-      // 添加图片
-      const image = group.addShape('image', {
-        attrs: {
-          x: -iconSize / 2,
-          y: -iconSize / 2,
-          width: iconSize,
-          height: iconSize,
-          img: cfg.img
-        },
-        // must be assigned in G6 3.3 and later versions. it can be any value you want
-        name: 'icon'
-      })
-      this.initAnchor(group)
-      return keyShape
-    },
+    // drawShape (cfg, group) {
+    //   var style = this.getShapeStyle(cfg)
+    //   delete style.height
+    //   delete style.width
+    //   var keyShape = group.addShape('circle', {
+    //     attrs: style,
+    //     className: 'circle-combo',
+    //     name: 'image-circle',
+    //     draggable: true
+    //   })
+    //   console.log(group)
+    //   const tmp = group.get('children')[0]
+    //   const iconSize = cfg.iconSize
+    //   // 添加图片
+    //   const image = group.addShape('image', {
+    //     attrs: {
+    //       x: -iconSize / 2,
+    //       y: -iconSize / 2,
+    //       width: iconSize,
+    //       height: iconSize,
+    //       img: cfg.img
+    //     },
+    //     // must be assigned in G6 3.3 and later versions. it can be any value you want
+    //     name: 'icon'
+    //   })
+    //   this.initAnchor(group)
+    //   return keyShape
+    // },
     drawAnchor (group) {
-      const bbox = group.get('children')[0].getBBox()
+      const bbox = group.get('children')[1].getBBox()
       this.getAnchorPoints().forEach((p, i) => {
         const anchorContainer = group.addGroup()
         const anchor = new Anchor({
