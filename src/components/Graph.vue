@@ -162,8 +162,15 @@ export default {
         // color: 'rgba(255,255,255,0)',
         style: {
           // stroke: 'rgba(255,255,255,0)',
-          fill: 'rgba(55,100,255,0.5)',
-          stroke: 'black'
+          // fill: 'rgba(55,100,255,0.5)',
+          stroke: 'black',
+          background: {
+            fill: 'red',
+            stroke: 'green',
+            padding: [3, 2, 3, 2],
+            radius: 2,
+            lineWidth: 3
+          }
           // fill: 'white'
         }
       },
@@ -201,7 +208,7 @@ export default {
     // this.graph.on('node:mouseenter', (e) => {
     //   const nodeItem = e.item // 获取鼠标进入的节点元素对象
 
-    //   // this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
+    //   this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
     // })
 
     // // 鼠标离开节点

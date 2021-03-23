@@ -5,24 +5,25 @@ export default function (G6) {
       return {
         'node:mouseenter': 'onNodeEnter',
         'node:mouseleave': 'onNodeLeave',
-        'anchor:mouseleave': 'onAnchorLeave'
+        'node:mousemove': 'onAnchorLeave'
       }
     },
     onAnchorLeave (e) {
-      console.log(e)
       const node = e.item.getContainer().getParent()
-      // if (node && !this.graph.get('edgeDragging')) {
-      //   this.graph.setItemState(node.get('item'), 'show-anchor', false)
-      // }
-    },
-    onNodeEnter (e) {
-      console.log(e.item.getModel(), e.item.getContainer())
-      if (!this.graph.get('edgeDragging')) {
+      console.log('mouseenter', e.target.get('name'))
+      if (node && !this.graph.get('edgeDragging')) {
         this.graph.setItemState(e.item, 'show-anchor', true)
       }
     },
-    onNodeLeave (e) {
+    onNodeEnter (e) {
       if (!this.graph.get('edgeDragging')) {
+        this.graph.setItemState(e.item, 'show-anchor', true)
+      }
+      if (e.target.get('name') === 'anchor-shape' && !this.graph.get('edgeDragging')) { this.graph.setItemState(e.item, 'active-anchor', true) }
+    },
+    onNodeLeave (e) {
+      console.log('mouseleave', e.target.get('name'))
+      if (!(e.target instanceof Marker) && !this.graph.get('edgeDragging') && e.target.get('name') !== 'anchor-shape') {
         this.graph.setItemState(e.item, 'show-anchor', false)
       }
     }
