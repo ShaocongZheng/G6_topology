@@ -16,63 +16,46 @@ export default function (G6) {
         hover: {
           cursor: editorStyle.cursor.hoverNode
         }
+      },
+      linkPoints: {
+        top: true,
+        bottom: true,
+        left: true,
+        right: true,
+        stroke: 'black',
+        fill: '#fff',
+        size: 5
       }
     },
-    draw (cfg, group) {
-      const size = this.getSize(cfg) // 转换成 [width, height] 的模式
-      const width = size[0]
-      const height = size[1]
-      const iconSize = cfg.iconSize
-      //  / 1 \
-      // 4     2
-      //  \ 3 /
-      //   const path = [
-      //     ['M', 0, 0], // 上部顶点
-      //     ['L', width, 0], // 右侧顶点
-      //     ['L', width, height], // 下部顶点
-      //     ['L', 0, height], // 左侧顶点
-      //     ['Z'] // 封闭
-      //   ]
-      const path = [
-        // 左顶点
-        ['M', -width / 2, 0],
-        // 上弧
-        ['A', width / 4, height / 4, 0, 1, 0, width / 2, 0],
-        // 下弧
-        ['A', width / 4, height / 4, 0, 1, 0, -width / 2, 0]
-      ]
-      const style = G6Util.mix({}, cfg.style, {
-        path: path,
-        fill: cfg.style.fill || 'rgba(55,100,255,0)',
-        cursor: 'pointer'
-      })
-
-      // 添加图片
-      const image = group.addShape('image', {
-        attrs: {
-          x: -iconSize / 2,
-          y: -iconSize / 2,
-          width: iconSize,
-          height: iconSize,
-          img: cfg.img
-        },
-        // must be assigned in G6 3.3 and later versions. it can be any value you want
-        name: 'image-shape'
-      })
-      // 增加一个 path 图形作为 keyShape
-      const keyShape = group.addShape('path', {
-        attrs: {
-          ...style
-        },
-        draggable: true,
-        name: 'diamond-keyShape'
-      })
-      this.initAnchor(group)
-      // 返回 keyShape
-      return keyShape
-    },
-    // afterDraw (cfg, group) {
+    // draw (cfg, group) {
+    //   const size = this.getSize(cfg) // 转换成 [width, height] 的模式
+    //   const width = size[0]
+    //   const height = size[1]
     //   const iconSize = cfg.iconSize
+    //   //  / 1 \
+    //   // 4     2
+    //   //  \ 3 /
+    //   //   const path = [
+    //   //     ['M', 0, 0], // 上部顶点
+    //   //     ['L', width, 0], // 右侧顶点
+    //   //     ['L', width, height], // 下部顶点
+    //   //     ['L', 0, height], // 左侧顶点
+    //   //     ['Z'] // 封闭
+    //   //   ]
+    //   const path = [
+    //     // 左顶点
+    //     ['M', -width / 2, 0],
+    //     // 上弧
+    //     ['A', width / 4, height / 4, 0, 1, 0, width / 2, 0],
+    //     // 下弧
+    //     ['A', width / 4, height / 4, 0, 1, 0, -width / 2, 0]
+    //   ]
+    //   const style = G6Util.mix({}, cfg.style, {
+    //     path: path,
+    //     fill: cfg.style.fill || 'rgba(55,100,255,0)',
+    //     cursor: 'pointer'
+    //   })
+
     //   // 添加图片
     //   const image = group.addShape('image', {
     //     attrs: {
@@ -85,8 +68,34 @@ export default function (G6) {
     //     // must be assigned in G6 3.3 and later versions. it can be any value you want
     //     name: 'image-shape'
     //   })
-    //   this.initAnchor(group)
+    //   // 增加一个 path 图形作为 keyShape
+    //   const keyShape = group.addShape('path', {
+    //     attrs: {
+    //       ...style
+    //     },
+    //     draggable: true,
+    //     name: 'custom-circle'
+    //   })
+    //   //   this.initAnchor(group)
+    //   // 返回 keyShape
+    //   return keyShape
     // },
+    afterDraw (cfg, group) {
+      const iconSize = cfg.iconSize
+      // 添加图片
+    //   const image = group.addShape('image', {
+    //     attrs: {
+    //       x: -iconSize / 2,
+    //       y: -iconSize / 2,
+    //       width: iconSize,
+    //       height: iconSize,
+    //       img: cfg.img
+    //     },
+    //     // must be assigned in G6 3.3 and later versions. it can be any value you want
+    //     name: 'image-shape'
+    //   })
+    //   this.initAnchor(group)
+    },
     // drawShape (cfg, group) {
     //   var style = this.getShapeStyle(cfg)
     //   delete style.height
@@ -157,31 +166,44 @@ export default function (G6) {
     },
     setState (name, value, item) {
       const group = item.getContainer()
-      if (name === 'show-anchor') {
-        if (value) {
-          group.showAnchor()
-        } else {
-          group.clearAnchor()
-        }
-      } else if (name === 'selected') {
-        const rect = group.getChildByIndex(0)
-        if (value) {
-          rect.attr('fill', this.options.stateStyles.selected.fill)
-        } else {
-          rect.attr('fill', this.options.style.fill)
-        }
-      } else if (name === 'hover') {
-        const rect = group.getChildByIndex(1)
-        const text = group.getChildByIndex(2)
-        if (value) {
-          rect.attr('cursor', this.options.stateStyles.hover.cursor)
-          if (text) { text.attr('cursor', this.options.stateStyles.hover.cursor) }
-        } else {
-          rect.attr('cursor', this.options.style.cursor)
-          if (text) { text.attr('cursor', this.options.style.cursor) }
-        }
+      const circle = group.getChildByIndex(1)
+      if (value) {
+        console.log(1)
+        circle.attr('linkPoints',
+          {
+            top: true,
+            bottom: true,
+            left: true,
+            right: true,
+            fill: '#fff',
+            size: 5
+          })
       }
-      this.setCustomState(name, value, item)
+    //   if (name === 'show-anchor') {
+    //     if (value) {
+    //       group.showAnchor()
+    //     } else {
+    //       group.clearAnchor()
+    //     }
+    //   } else if (name === 'selected') {
+    //     const rect = group.getChildByIndex(0)
+    //     if (value) {
+    //       rect.attr('fill', this.options.stateStyles.selected.fill)
+    //     } else {
+    //       rect.attr('fill', this.options.style.fill)
+    //     }
+    //   } else if (name === 'hover') {
+    //     const rect = group.getChildByIndex(1)
+    //     const text = group.getChildByIndex(2)
+    //     if (value) {
+    //       rect.attr('cursor', this.options.stateStyles.hover.cursor)
+    //       if (text) { text.attr('cursor', this.options.stateStyles.hover.cursor) }
+    //     } else {
+    //       rect.attr('cursor', this.options.style.cursor)
+    //       if (text) { text.attr('cursor', this.options.style.cursor) }
+    //     }
+    //   }
+    //   this.setCustomState(name, value, item)
     },
     setCustomState (name, value, item) {
 

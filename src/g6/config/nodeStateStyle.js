@@ -5,7 +5,7 @@ export default {
     hover: {
       lineWidth: 2,
       stroke: 'rgba(55,100,255,0.1)',
-      fill: 'rgba(55,100,255,0)',
+      // fill: 'rgba(55,100,255,0)',
       cursor: 'pointer'
     }
     // 鼠标点击节点，即 click 状态为 true 时的样式

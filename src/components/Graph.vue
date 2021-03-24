@@ -142,22 +142,25 @@ export default {
       //   // 其他配置
       // },
       defaultNode: {
-        type: 'imageBox',
+        type: 'iconCircle',
         // 其他配置
         size: 60,
         iconSize: 30,
-        img: require('../../public/images/icon/云存储_cloud-storage.svg'),
+        // img: require('../../public/images/icon/云存储_cloud-storage.svg'),
         anchorPoints: [
           [0, 0.5],
           [0.5, 0],
           [1, 0.5],
           [0.5, 1]
         ],
-        linkPoints: {
-          top: true,
-          bottom: true,
-          left: true,
-          right: true
+        icon: {
+          show: true,
+          img: require('../../public/images/icon/云存储_cloud-storage.svg')
+        },
+        labelCfg: {
+          position: 'bottom',
+          offset: 10
+
         },
         // color: 'rgba(255,255,255,0)',
         style: {
