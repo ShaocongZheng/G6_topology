@@ -184,23 +184,24 @@ export default {
           'clickSelected',
           'drag-node',
           'drag-combo',
+          'dragEdge',
           'collapse-expand-combo',
           'dragToAddItem',
           'hoverNodeActived'
         ],
         view: [],
         edit: [
-          'drag-canvas',
-          'hoverNodeActived',
-          'hoverAnchorActived',
-          'dragNode',
-          'dragEdge',
-          'dragPanelItemAddNode',
-          'clickSelected',
-          'deleteItem',
-          'itemAlign',
-          'dragPoint',
-          'brush-select'
+          // 'drag-canvas',
+          // 'hoverNodeActived',
+          // 'hoverAnchorActived',
+          // 'dragNode',
+          // 'dragEdge'
+          // 'dragPanelItemAddNode',
+          // 'clickSelected',
+          // 'deleteItem',
+          // 'itemAlign',
+          // 'dragPoint',
+          // 'brush-select'
         ]
       },
       enabledStack: true,

@@ -1,6 +1,4 @@
-// import Base from '@antv/g6-plugin/lib/base'
-
-import Base from '@antv/g-base/lib/abstract/base'
+import Base from '@antv/g6-plugin/lib/base'
 import { createDom } from '@antv/dom-util'
 
 var __extends = this && this.__extends || (function () {

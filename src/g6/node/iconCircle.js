@@ -1,3 +1,4 @@
+import defaultStyle from '../config/defaultStyle'
 var _tslib = require('tslib')
 
 var _g6Core = require('@antv/g6-core')
@@ -31,9 +32,10 @@ export default function (G6) {
         // circle的大小
         // size: _g6Core.BaseGlobal.defaultNode.linkPoints.size,
         size: 0,
-        lineWidth: _g6Core.BaseGlobal.defaultNode.linkPoints.lineWidth,
-        fill: _g6Core.BaseGlobal.defaultNode.linkPoints.fill,
-        stroke: _g6Core.BaseGlobal.defaultNode.linkPoints.stroke
+        ...defaultStyle.anchor.default
+        // lineWidth: _g6Core.BaseGlobal.defaultNode.linkPoints.lineWidth,
+        // fill: _g6Core.BaseGlobal.defaultNode.linkPoints.fill,
+        // stroke: _g6Core.BaseGlobal.defaultNode.linkPoints.stroke
       },
       // 节点中icon配置
       icon: {
@@ -98,6 +100,7 @@ export default function (G6) {
             y: 0,
             r: markSize / 2 || markR || 0
           }),
+          index: 0,
           className: 'link-point-left',
           name: 'link-point-left',
           isAnchorPoint: true
@@ -112,6 +115,7 @@ export default function (G6) {
             y: 0,
             r: markSize / 2 || markR || 0
           }),
+          index: 2,
           className: 'link-point-right',
           name: 'link-point-right',
           isAnchorPoint: true
@@ -126,6 +130,7 @@ export default function (G6) {
             y: -r,
             r: markSize / 2 || markR || 0
           }),
+          index: 1,
           className: 'link-point-top',
           name: 'link-point-top',
           isAnchorPoint: true
@@ -140,6 +145,7 @@ export default function (G6) {
             y: r,
             r: markSize / 2 || markR || 0
           }),
+          index: 3,
           className: 'link-point-bottom',
           name: 'link-point-bottom',
           isAnchorPoint: true
@@ -148,12 +154,11 @@ export default function (G6) {
     },
     setState (name, value, item) {
       const group = item.getContainer()
-      console.log('setState')
       if (name === 'show-anchor') {
         if (value) {
           for (let i = 2; i <= 5; i++) {
             const linkPoint = group.getChildByIndex(i)
-            linkPoint.attr('r', 4)
+            linkPoint.attr({ ...defaultStyle.anchor.show })
           }
 
         //   group.showAnchor()
@@ -161,19 +166,18 @@ export default function (G6) {
         //   group.clearAnchor()
           for (let i = 2; i <= 5; i++) {
             const linkPoint = group.getChildByIndex(i)
-            linkPoint.attr('r', 0)
+            linkPoint.attr({ ...defaultStyle.anchor.default })
           }
         }
       } else if (name === 'active-anchor') {
-        console.log(value)
         if (value.active) {
           this.activeLinkPoint = value.linkPoint
           const point = group.find(i => i.cfg.name === value.linkPoint)
-          point.attr('fill', 'red')
+          point.attr({ ...defaultStyle.anchor.hover })
         } else {
           const point = group.find(i => i.cfg.name === this.activeLinkPoint)
           if (point) {
-            point.attr('fill', _g6Core.BaseGlobal.defaultNode.linkPoints.fill)
+            point.attr({ ...defaultStyle.anchor.show })
           }
           this.activeLinkPoint = ''
         }

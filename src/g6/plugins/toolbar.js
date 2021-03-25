@@ -1,7 +1,7 @@
 import { modifyCSS, createDom } from '@antv/dom-util'
 import { clone, isString } from '@antv/util'
-// import Base from '@antv/g6-plugin/lib/base'
-import Base from '@antv/g-base/lib/abstract/base'
+import Base from '@antv/g6-plugin/lib/base'
+// import Base from '@antv/g-base/lib/abstract/base'
 // import insertCss from 'insert-css'
 
 var __extends = this && this.__extends || (function () {

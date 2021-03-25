@@ -7,22 +7,60 @@ export default function (G6) {
   G6.registerBehavior('dragEdge', {
     getDefaultCfg () {
       return {
-        updateEdge: true,
-        delegate: true,
-        delegateStyle: {},
-        dragEdge: false
+        // updateEdge: true,
+        // delegate: true,
+        // delegateStyle: {},
+        // dragEdge: false
       }
     },
     getEvents () {
       return {
-        'anchor:dragstart': 'onDragStart',
-        'anchor:drag': 'onDrag',
-        'anchor:dragend': 'onDragEnd',
-        'anchor:dragenter': 'onDragEnter',
-        'anchor:dragleave': 'onDragLeave'
+        // 'node:mousedown': 'onDragStart',
+        // 'canvas:mouseup': 'onDragEnd',
+        // 'anchor:dragenter': 'onDragEnter',
+        // 'node:dragleave': 'onDragLeave',
+        'node:click': 'onAnchorClick',
+        mousemove: 'onDrag'
+      }
+    },
+    onAnchorClick (e) {
+      const node = e.item
+      const group = node.getContainer()
+      console.log('dragstart')
+      if (String(e.target.cfg.className).indexOf('link-point') !== -1) {
+        const nodeModel = group.cfg.item.getModel()
+        const anchorModel = e.target.cfg
+        const point = {
+          x: e.x,
+          y: e.y
+        }
+        console.log('anchor', anchorModel)
+        if (!this.graph.get('edgeDragging')) {
+          this.graph.edge = this.graph.addItem('edge', {
+            sourceAnchor: anchorModel.index,
+            source: nodeModel.id,
+            target: point
+          })
+          this.graph.set('edgeDragging', true)
+        } else {
+          this.graph.updateItem(this.graph.edge, {
+            targetAnchor: anchorModel.index,
+            target: nodeModel.id
+          })
+          this.graph.edge = null
+          this.graph.set('edgeDragging', false)
+        }
+
+        // this.graph.setMode('edit')
+        console.log('edit set', this.edge)
+      } else if (this.graph.get('edgeDragging')) {
+        this.graph.removeItem(this.graph.edge)
+        this.graph.edge = null
+        this.graph.set('edgeDragging', null)
       }
     },
     onDragEnter (e) {
+      console.log(e.type, e.name, e.target, e.target.cfg.className)
       if (!this.origin) {
         return
       }
@@ -43,52 +81,94 @@ export default function (G6) {
       }
     },
     onDragStart (e) {
-      const node = e.target.getParent().getParent().get('item')
-      const anchorIndex = e.item.get('index')
-      const point = node.getAnchorPoints()[anchorIndex]
-      this.target = e.item
-      const groupId = node.get('groupId')
-      if (groupId) {
-        const subProcessNode = e.target.getParent().getParent().getParent().getParent().get('item')
-        const subProcessBBox = subProcessNode.getBBox()
-        this.origin = {
-          x: point.x + subProcessBBox.x + subProcessBBox.width / 2,
-          y: point.y + subProcessBBox.y + subProcessBBox.height / 2,
-          sourceNode: node,
-          sourceAnchor: anchorIndex
+      console.log(e.type, e.name, e.target, e.target.cfg.className)
+      const node = e.item
+      const group = node.getContainer()
+      if (String(e.target.cfg.className).indexOf('link-point') !== -1) {
+        const nodeModel = group.cfg.item.getModel()
+        const anchorModel = e.target.cfg
+        const point = {
+          x: e.x,
+          y: e.y
         }
-        this.dragEdgeBeforeShowAnchorBySub(subProcessNode)
+        console.log('anchor', anchorModel)
+        this.edge = this.graph.addItem('edge', {
+          // sourceAnchor: anchorModel.index,
+          source: nodeModel.id,
+          target: point
+        })
+        console.log('edge', this.edge)
+        // this.addingEdge = true
+        // this.origin = {
+        //   x: point.x + subProcessBBox.x + subProcessBBox.width / 2,
+        //   y: point.y + subProcessBBox.y + subProcessBBox.height / 2,
+        //   sourceNode: node,
+        //   sourceAnchor: anchorIndex
+        // }
+        // this.graph.setItemState(group.cfg.item, 'active-anchor', {
+        //   linkPoint: e.target.cfg.className,
+        //   active: true
+        // })
+        this.graph.set('edgeDragging', true)
       } else {
-        this.origin = {
-          x: point.x,
-          y: point.y,
-          sourceNode: node,
-          sourceAnchor: anchorIndex
-        }
-        this.dragEdgeBeforeShowAnchor(e)
+        // this.graph.setItemState(group.cfg.item, 'active-anchor', {
+        //   linkPoint: e.target.cfg.className,
+        //   active: false
+        // })
       }
-      this.graph.set('edgeDragging', true)
+      // const point = node.getAnchorPoints()[anchorIndex]
+      // this.target = e.item
+      // const groupId = node.get('groupId')
+      // if (groupId) {
+      //   const subProcessNode = e.target.getParent().getParent().getParent().getParent().get('item')
+      //   const subProcessBBox = subProcessNode.getBBox()
+      //   this.origin = {
+      //     x: point.x + subProcessBBox.x + subProcessBBox.width / 2,
+      //     y: point.y + subProcessBBox.y + subProcessBBox.height / 2,
+      //     sourceNode: node,
+      //     sourceAnchor: anchorIndex
+      //   }
+      //   this.dragEdgeBeforeShowAnchorBySub(subProcessNode)
+      // } else {
+      //   this.origin = {
+      //     x: point.x,
+      //     y: point.y,
+      //     sourceNode: node,
+      //     sourceAnchor: anchorIndex
+      //   }
+      //   this.dragEdgeBeforeShowAnchor(e)
+      // }
+      // this.graph.set('edgeDragging', true)
     },
     onDrag (e) {
-      if (!this.origin) {
-        return
+      const point = {
+        x: e.x,
+        y: e.y
       }
-      this._updateEdge(this.target, e)
+      if (this.graph.edge) {
+        if (this.graph.get('edgeDragging') && this.graph.edge) {
+          this.graph.updateItem(this.graph.edge, {
+            target: point
+          })
+        }
+      }
+      // this._updateEdge(this.target, e)
     },
     onDragEnd (e) {
-      if (!this.origin) {
-        return
+      if (this.edge) {
+        this.graph.set('edgeDragging', false)
+        this.graph.setMode('default')
       }
-      const delegateShape = e.item.get('edgeDelegate')
-      if (delegateShape) {
-        delegateShape.remove()
-        this.target.set('edgeDelegate', null)
-      }
-      this._updateEdge(this.target, e, true)
-      this.graph.setItemState(this.origin.sourceNode, 'show-anchor', false)
-      this.target = null
-      this.origin = null
-      this.graph.set('edgeDragging', false)
+      // const delegateShape = e.item.get('edgeDelegate')
+      // if (delegateShape) {
+      //   delegateShape.remove()
+      //   this.target.set('edgeDelegate', null)
+      // }
+      // this._updateEdge(this.target, e, true)
+      // this.graph.setItemState(this.origin.sourceNode, 'show-anchor', false)
+      // this.target = null
+      // this.origin = null
+      // this.graph.set('edgeDragging', false)
     },
     sameNode (e) {
       return e.target instanceof Marker && e.target.getParent() && e.target.getParent().getParent().get('item').get('id') === this.origin.sourceNode.get('id')

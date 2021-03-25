@@ -58,5 +58,19 @@ export default {
     radius: 4,
     lineWidth: 1
   },
-  edgeDelegationStyle: { stroke: '#1890FF', lineDash: [4, 4], lineWidth: 1 }
+  edgeDelegationStyle: { stroke: '#1890FF', lineDash: [4, 4], lineWidth: 1 },
+  anchor: {
+    default: {
+      r: 0, fill: '#fff', stroke: '#1890FF', lineAppendWidth: 12
+    },
+    show: {
+      r: 4, fill: '#fff', stroke: '#1890FF', lineAppendWidth: 12
+    },
+    hover: {
+      r: 4, fill: '#1890FF', fillOpacity: 1, stroke: '#1890FF'
+    },
+    hotspot: {
+      r: 12, fill: '#1890FF', fillOpacity: 0.25
+    }
+  }
 }
