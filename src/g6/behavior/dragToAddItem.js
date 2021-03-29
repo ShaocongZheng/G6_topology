@@ -62,48 +62,12 @@ export default function (G6) {
             return false
           }
         })
-        if (subProcessNode) {
-          if (p.x > 0 && p.y > 0) {
-            this._addNodeBySubProcess(p, subProcessNode)
-          }
-        } else {
-          if (p.x > 0 && p.y > 0) {
-            this._addNode(p)
-          }
-        }
-      }
-    },
-    _addNodeBySubProcess (p, node) {
-      if (this.graph.get('addNodeDragging')) {
-        const addModel = this.graph.get('addModel')
-        const { clazz = 'userTask' } = addModel
-        // addModel.shape = getShapeName(clazz)
-        addModel.size = addModel.size.split('*')
-        const timestamp = new Date().getTime()
-        const id = clazz + timestamp
-        const bbox = node.getBBox()
-        const x = p.x - bbox.x - bbox.width / 2
-        const y = p.y - bbox.y - bbox.height / 2
-        const nodeCfg = {
-          ...addModel,
-          x,
-          y,
-          id
-        }
-        const group = node.getContainer()
-        const resultModel = group.addNodeModel(node, nodeCfg)
-        if (this.graph.executeCommand) {
-          this.graph.executeCommand('update', {
-            itemId: node.get('id'),
-            updateModel: resultModel
-          })
-        } else {
-          this.graph.updateItem(node, resultModel)
-        }
+
+        this._addNode(p)
       }
     },
     onMouseLeave (e) {
-      if (this.graph.get('addNodeDragging') || 1 !== 2) {
+      if (this.graph.get('addNodeDragging')) {
         this._clearDelegate()
         this.graph.emit('afternodedragend')
       }

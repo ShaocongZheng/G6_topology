@@ -8,7 +8,13 @@
     flex: 1;
     display: flex;
     flex-direction: row;
+    position: relative;
     height: 100%;
+    align-items: stretch;
+    #canvas {
+      flex-grow: 4;
+      flex-basis: 50%;
+    }
   }
 }
 </style>
@@ -17,7 +23,8 @@
     <tool-bar ref="toolbar" :graph="graph"></tool-bar>
     <div class="main">
       <item-panel ref="itemPanel"></item-panel>
-      <div id="canvas" ref="canvas" class="canvasPanel" style="flex: 4"></div>
+      <div id="canvas" ref="canvas" class="canvasPanel"></div>
+      <config-panel :graph="graph"></config-panel>
     </div>
   </div>
 </template>
@@ -25,6 +32,7 @@
 import G6 from '@antv/g6'
 import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
+import ConfigPanel from './ConfigPanel'
 import G6Register from '../g6'
 import nodeStateStyle from '../g6/config/nodeStateStyle'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
@@ -33,7 +41,8 @@ G6Register(G6)
 export default {
   components: {
     ItemPanel: ItemPanel,
-    ToolBar: ToolBar
+    ToolBar: ToolBar,
+    ConfigPanel: ConfigPanel
   },
   data () {
     return {
@@ -98,8 +107,9 @@ export default {
     })
     const dragpanel = new DragPanelPlugin()
     const grid = new G6.Grid()
-    const width = document.getElementById('canvas').scrollWidth
+    const width = document.getElementById('canvas').clientWidth
     const height = document.getElementById('canvas').scrollHeight || 500
+    console.log(width, height, this.$refs.canvas.scrollHeight, this.$refs.canvas.scrollWidth)
     G6.registerNode('custom-modelRect', {
 
     }, 'modelRect')
@@ -107,40 +117,6 @@ export default {
       container: 'canvas', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
       width: width, // Number，必须，图的宽度
       height: height,
-      // layout: {
-      //   // Object，可选，布局的方法及其配置项，默认为 random 布局。
-      //   type: 'random', // 指定为力导向布局
-      //   preventOverlap: true, // 防止节点重叠
-      //   nodeSize: 50 // 节点大小，用于算法中防止节点重叠时的碰撞检测。由于已经在上一节的元素配置中设置了每个节点的 size 属性，则不需要在此设置 nodeSize。
-      // },
-      // defaultNode: {
-      //   type: 'image',
-      //   label: 'AntV Team',
-      //   size: 40,
-      //   img: require('../../public/images/icon/云存储_cloud-storage.svg'),
-      //   // img: 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?max_age=31536000',
-      //   style: {
-      //     // stroke: 'red',
-      //     // lineWidth: 0,
-      //     // shadowColor: 'red',
-      //     // shadowBlur: 20
-      //     // opacity: 0.1
-      //   },
-      //   anchorPoints: [
-      //     [0, 0.5, { type: 'circle', style: { stroke: 'red', fill: 'white' } }],
-      //     [0.5, 0, { type: 'rect', style: { stroke: 'blue', fill: 'white' } }],
-      //     [1, 0.5],
-      //     [0.5, 1]
-      //   ],
-      //   linkPoints: {
-      //     top: true,
-      //     bottom: true,
-      //     left: true,
-      //     right: true
-      //   // ... 四个圆的样式可以在这里指定
-      //   }
-      //   // 其他配置
-      // },
       defaultNode: {
         type: 'iconCircle',
         // 其他配置
@@ -180,14 +156,19 @@ export default {
       ...nodeStateStyle,
       modes: {
         default: [
-          'drag-canvas',
+          // 'drag-canvas',
           'clickSelected',
           'drag-node',
           'drag-combo',
           'dragEdge',
           'collapse-expand-combo',
           'dragToAddItem',
-          'hoverNodeActived'
+          'hoverNodeActived',
+          {
+            type: 'click-select',
+            multiple: true,
+            trigger: 'shift'
+          }
         ],
         view: [],
         edit: [
@@ -208,33 +189,13 @@ export default {
       maxStep: 20,
       plugins: [toolbar, grid, dragpanel]
     })
-    // // 鼠标进入节点
-    // this.graph.on('node:mouseenter', (e) => {
-    //   const nodeItem = e.item // 获取鼠标进入的节点元素对象
 
-    //   this.graph.setItemState(nodeItem, 'hover', true) // 设置当前节点的 hover 状态为 true
-    // })
-
-    // // 鼠标离开节点
-    // this.graph.on('node:mouseleave', (e) => {
-    //   const nodeItem = e.item // 获取鼠标离开的节点元素对象
-
-    //   this.graph.setItemState(nodeItem, 'hover', false) // 设置当前节点的 hover 状态为 false
-    // })
-
-    // // 点击节点
-    // this.graph.on('node:click', (e) => {
-    //   // 先将所有当前是 click 状态的节点置为非 click 状态
-    //   const clickNodes = this.graph.findAllByState('node', 'click')
-    //   clickNodes.forEach((cn) => {
-    //     this.graph.setItemState(cn, 'click', false)
-    //   })
-    //   const nodeItem = e.item // 获取被点击的节点元素对象
-    //   this.graph.setItemState(nodeItem, 'click', true) // 设置当前节点的 click 状态为 true
-    // })
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
     // this.initDragEvent()
+  },
+  afterMount () {
+    console.log(this.$refs.canvas.scrollHeight, this.$refs.canvas.scrollWidth)
   },
   methods: {
     initDragEvent () {

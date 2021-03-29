@@ -1,20 +1,24 @@
 export default function (G6) {
-  // G6.registerBehavior('clickSelected', {
-  //   getDefaultCfg () {
-  //     return {
-  //       multiple: false
-  //     }
-  //   },
-  //   getEvents () {
-  //     return {
-  //       'node:click': 'onClick',
-  //       'edge:click': 'onClick',
-  //       'edge:mouseover': 'onEdgeMouseOver',
-  //       'edge:mouseleave': 'onEdgeMouseLeave',
-  //       'canvas:click': 'onCanvasClick',
-  //       'node:mouseover': 'onNodeMouseOver'
-  //     }
-  //   },
+  G6.registerBehavior('clickSelected', {
+    getDefaultCfg () {
+      return {
+        multiple: false
+      }
+    },
+    getEvents () {
+      return {
+        nodeselectchange: 'onClick'
+        // 'edge:click': 'onClick',
+        // 'edge:mouseover': 'onEdgeMouseOver',
+        // 'edge:mouseleave': 'onEdgeMouseLeave',
+        // 'canvas:click': 'onCanvasClick',
+        // 'node:mouseover': 'onNodeMouseOver'
+      }
+    },
+    onClick (e) {
+      // this.graph.setItemState(e.item, 'selected', true)
+      console.log(e.target, e.selectedItems)
+    }
   //   onClick (e) {
   //     this._clearSelected()
   //     this.graph.setItemState(e.item, 'selected', true)
@@ -80,5 +84,5 @@ export default function (G6) {
   //     this._clearSubProcessSelected()
   //     this.graph.set('selectedItems', [])
   //   }
-  // })
+  })
 }

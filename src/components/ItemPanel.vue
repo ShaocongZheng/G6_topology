@@ -3,8 +3,10 @@ $itemBox-length: 20%;
 $img-length: 30px;
 
 .itemPanel {
-  flex: 1;
-  min-width: 250px;
+  flex-grow: 1;
+  flex-shrink: 0.8;
+  flex-basis: 200px;
+  // min-width: 250px;
   // border: 1px solid #dcdee2;
   position: relative;
   z-index: 998;
