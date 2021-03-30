@@ -81,19 +81,10 @@ export default {
         { source: '0', target: '7', label: 'e0-7', weight: 2 },
         { source: '0', target: '8', label: 'e0-8', weight: 2 },
         { source: '0', target: '9', label: 'e0-9', weight: 1.3 },
-        { source: '0', target: '10', label: 'e0-10', weight: 1.5 },
-        { source: '0', target: '11', label: 'e0-11', weight: 1 },
-        { source: '0', target: '13', label: 'e0-13', weight: 10 },
-        { source: '0', target: '14', label: 'e0-14', weight: 2 },
-        { source: '0', target: '15', label: 'e0-15', weight: 0.5 },
-        { source: '0', target: '16', label: 'e0-16', weight: 0.8 },
         { source: '2', target: '3', label: 'e2-3', weight: 1 },
         { source: '4', target: '5', label: 'e4-5', weight: 1.4 },
         { source: '4', target: '6', label: 'e4-6', weight: 2.1 },
-        { source: '5', target: '6', label: 'e5-6', weight: 1.9 },
-        { source: '7', target: '13', label: 'e7-13', weight: 0.5 },
-        { source: '8', target: '14', label: 'e8-14', weight: 0.8 },
-        { source: '9', target: '10', label: 'e9-10', weight: 0.2 }
+        { source: '5', target: '6', label: 'e5-6', weight: 1.9 }
       ],
       combos: [
         {

@@ -163,7 +163,8 @@ export default function (G6) {
           index: 2,
           className: 'link-point-right',
           name: 'link-point-right',
-          isAnchorPoint: true
+          isAnchorPoint: true,
+          draggable: true
         })
       }
 
@@ -179,7 +180,8 @@ export default function (G6) {
           index: 1,
           className: 'link-point-top',
           name: 'link-point-top',
-          isAnchorPoint: true
+          isAnchorPoint: true,
+          draggable: true
         })
       }
 
@@ -195,7 +197,8 @@ export default function (G6) {
           index: 3,
           className: 'link-point-bottom',
           name: 'link-point-bottom',
-          isAnchorPoint: true
+          isAnchorPoint: true,
+          draggable: true
         })
       }
     },

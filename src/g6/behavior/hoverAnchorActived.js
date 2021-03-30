@@ -2,9 +2,9 @@ export default function (G6) {
   G6.registerBehavior('hoverAnchorActived', {
     getEvents () {
       return {
-        'node:dragstart': 'onAnchorEnter',
-        'anchor:mousemove': 'onAnchorEnter',
-        'anchor:mouseleave': 'onAnchorLeave'
+        // 'node:dragstart': 'onAnchorEnter',
+        // 'anchor:mousemove': 'onAnchorEnter',
+        // 'anchor:mouseleave': 'onAnchorLeave'
       }
     },
     onAnchorEnter (e) {

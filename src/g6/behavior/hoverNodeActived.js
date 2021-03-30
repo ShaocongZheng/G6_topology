@@ -5,8 +5,8 @@ export default function (G6) {
       return {
         'node:mouseenter': 'onNodeEnter',
         'node:mouseleave': 'onNodeLeave',
-        'node:mousemove': 'onAnchorMove'
-
+        'node:mousemove': 'onAnchorMove',
+        'node:dragenter': 'onNodeEnter'
         // 'canvas:mousemove': 'onCanvasMove'
       }
     },

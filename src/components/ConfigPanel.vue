@@ -33,6 +33,9 @@ $form-font-size: 8px;
     .el-form-item__content {
         font-size: $form-font-size;
     }
+    .el-form {
+      padding-left: 5px;
+    }
   }
 }
 </style>
@@ -40,7 +43,7 @@ $form-font-size: 8px;
   <div class="rightPanel">
     <el-tabs value="1">
       <el-tab-pane label="配置" name="1">
-        <el-collapse value="1">
+        <el-collapse :value="['1']">
             <!-- <el-collapse-item title="样式">
 
             </el-collapse-item> -->

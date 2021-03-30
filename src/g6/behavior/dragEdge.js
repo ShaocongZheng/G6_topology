@@ -19,8 +19,11 @@ export default function (G6) {
         // 'canvas:mouseup': 'onDragEnd',
         // 'anchor:dragenter': 'onDragEnter',
         // 'node:dragleave': 'onDragLeave',
-        'node:dragstart': 'onAnchorClick',
-        mousemove: 'onDrag'
+        // mousemove: 'onDrag',
+        // 'node:dragstart': 'onAnchorClick',
+        // 'node:drag': 'onDrag',
+        // 'node:drop': 'onAnchorClick'
+
       }
     },
     onAnchorClick (e) {
@@ -43,6 +46,7 @@ export default function (G6) {
           })
           this.graph.set('edgeDragging', true)
         } else {
+          console.log(nodeModel.id)
           this.graph.updateItem(this.graph.edge, {
             targetAnchor: anchorModel.index,
             target: nodeModel.id
@@ -50,9 +54,6 @@ export default function (G6) {
           this.graph.edge = null
           this.graph.set('edgeDragging', false)
         }
-
-        // this.graph.setMode('edit')
-        console.log('edit set', this.edge)
       } else if (this.graph.get('edgeDragging')) {
         this.graph.removeItem(this.graph.edge)
         this.graph.edge = null
