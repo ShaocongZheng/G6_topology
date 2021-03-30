@@ -54,7 +54,48 @@ export default function (G6) {
       var defaultIcon = _a === undefined ? {} : _a
       var style = this.getShapeStyle(cfg)
       var icon = (0, _util.deepMix)({}, defaultIcon, cfg.icon)
+      const r = cfg.size / 2
+      // 第一个背景圆
+      const back1 = group.addShape('circle', {
+        zIndex: -3,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: cfg.color,
+          opacity: 0.6
+        },
+        // must be assigned in G6 3.3 and later versions. it can be any value you want
+        name: 'circle-shape1'
+      })
+      // 第二个背景圆
+      const back2 = group.addShape('circle', {
+        zIndex: -2,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: 'blue', // 为了显示清晰，随意设置了颜色
+          opacity: 0.6
+        },
+        // must be assigned in G6 3.3 and later versions. it can be any value you want
+        name: 'circle-shape2'
+      })
+      // 第三个背景圆
+      const back3 = group.addShape('circle', {
+        zIndex: -1,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: 'green',
+          opacity: 0.6
+        },
+        // must be assigned in G6 3.3 and later versions. it can be any value you want
+        name: 'circle-shape3'
+      })
       var keyShape = group.addShape('circle', {
+        zIndex: 1,
         attrs: style,
         className: this.type + '-keyShape',
         draggable: true
@@ -65,6 +106,7 @@ export default function (G6) {
 
       if (show) {
         group.addShape('image', {
+          zIndex: 2,
           attrs: (0, _tslib.__assign)({
             x: -width / 2,
             y: -height / 2
@@ -95,6 +137,7 @@ export default function (G6) {
       if (left) {
         // left circle
         group.addShape('circle', {
+          zIndex: 2,
           attrs: (0, _tslib.__assign)((0, _tslib.__assign)({}, markStyle), {
             x: -r,
             y: 0,
@@ -103,13 +146,15 @@ export default function (G6) {
           index: 0,
           className: 'link-point-left',
           name: 'link-point-left',
-          isAnchorPoint: true
+          isAnchorPoint: true,
+          draggable: true
         })
       }
 
       if (right) {
         // right circle
         group.addShape('circle', {
+          zIndex: 2,
           attrs: (0, _tslib.__assign)((0, _tslib.__assign)({}, markStyle), {
             x: r,
             y: 0,
@@ -125,6 +170,7 @@ export default function (G6) {
       if (top) {
         // top circle
         group.addShape('circle', {
+          zIndex: 2,
           attrs: (0, _tslib.__assign)((0, _tslib.__assign)({}, markStyle), {
             x: 0,
             y: -r,
@@ -140,6 +186,7 @@ export default function (G6) {
       if (bottom) {
         // bottom circle
         group.addShape('circle', {
+          zIndex: 2,
           attrs: (0, _tslib.__assign)((0, _tslib.__assign)({}, markStyle), {
             x: 0,
             y: r,
@@ -156,7 +203,7 @@ export default function (G6) {
       const group = item.getContainer()
       if (name === 'show-anchor') {
         if (value) {
-          for (let i = 2; i <= 5; i++) {
+          for (let i = 5; i <= 8; i++) {
             const linkPoint = group.getChildByIndex(i)
             linkPoint.attr({ ...defaultStyle.anchor.show })
           }
@@ -164,7 +211,7 @@ export default function (G6) {
         //   group.showAnchor()
         } else {
         //   group.clearAnchor()
-          for (let i = 2; i <= 5; i++) {
+          for (let i = 5; i <= 8; i++) {
             const linkPoint = group.getChildByIndex(i)
             linkPoint.attr({ ...defaultStyle.anchor.default })
           }
@@ -197,6 +244,81 @@ export default function (G6) {
         //   rect.attr('cursor', this.options.style.cursor)
         //   if (text) { text.attr('cursor', this.options.style.cursor) }
         // }
+      } else if (name === 'warning') {
+        const shape = item.get('keyShape')
+        console.log(group.getChildren())
+        const cfg = this.options
+        if (value) {
+          let r = cfg.size + 10
+          if (isNaN(r)) {
+            r = cfg.size[0] + 10
+          }
+          const back1 = group.getChildByIndex(0)
+          const back2 = group.getChildByIndex(1)
+          const back3 = group.getChildByIndex(2)
+          // circle.animate(
+          //   {
+          //     // r: cfg.r + 10,
+          //     // stroke: 'red',
+          //     // opacity: 0.1
+          //     // shadowColor: 'red',
+          //     // shadowBlur: 50,
+          //     // shadowOffsetY: 10
+          //   },
+          //   {
+          //     repeat: true, // 循环
+          //     duration: 2000,
+          //     easing: 'easeCubic',
+          //     delay: 1000 // 1 秒延迟
+          //   }
+          // )
+
+          // 第一个背景圆逐渐放大，并消失
+          back1.animate(
+            {
+              r: r + 10,
+              opacity: 0.1
+            },
+            {
+              repeat: true, // 循环
+              duration: 2000,
+              easing: 'easeCubic',
+              delay: 0 // 无延迟
+            }
+          )
+
+          // 第二个背景圆逐渐放大，并消失
+          back2.animate(
+            {
+              r: r + 10,
+              opacity: 0.1
+            },
+            {
+              repeat: true, // 循环
+              duration: 2000,
+              easing: 'easeCubic',
+              delay: 1000 // 1 秒延迟
+            }
+          ) // 1 秒延迟
+
+          // 第三个背景圆逐渐放大，并消失
+          back3.animate(
+            {
+              r: r + 10,
+              opacity: 0.1
+            },
+            {
+              repeat: true, // 循环
+              duration: 2000,
+              easing: 'easeCubic',
+              delay: 2000 // 2 秒延迟
+            }
+          )
+        } else {
+          // running 状态为 false 时
+          // 结束动画
+          shape.stopAnimate()
+        }
       }
     }
 

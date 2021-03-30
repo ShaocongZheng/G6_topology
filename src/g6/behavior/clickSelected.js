@@ -1,3 +1,4 @@
+import store from '../../store'
 export default function (G6) {
   G6.registerBehavior('clickSelected', {
     getDefaultCfg () {
@@ -18,6 +19,7 @@ export default function (G6) {
     onClick (e) {
       // this.graph.setItemState(e.item, 'selected', true)
       console.log(e.target, e.selectedItems)
+      store.commit('graph/setSelectedItems', e.selectedItems)
     }
   //   onClick (e) {
   //     this._clearSelected()

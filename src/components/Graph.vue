@@ -156,7 +156,7 @@ export default {
       ...nodeStateStyle,
       modes: {
         default: [
-          // 'drag-canvas',
+          'drag-canvas',
           'clickSelected',
           'drag-node',
           'drag-combo',
@@ -192,7 +192,13 @@ export default {
 
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
-    // this.initDragEvent()
+    this.$store.commit('graph/setGraph', this.graph)
+    this.graph.find('node', (node) => {
+      if (node.get('model').class === 'c0') {
+        this.graph.setItemState(node, 'warning', true)
+      }
+      return node.get('model').x === 100
+    })
   },
   afterMount () {
     console.log(this.$refs.canvas.scrollHeight, this.$refs.canvas.scrollWidth)

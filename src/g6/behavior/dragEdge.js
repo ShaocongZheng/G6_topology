@@ -19,7 +19,7 @@ export default function (G6) {
         // 'canvas:mouseup': 'onDragEnd',
         // 'anchor:dragenter': 'onDragEnter',
         // 'node:dragleave': 'onDragLeave',
-        'node:click': 'onAnchorClick',
+        'node:dragstart': 'onAnchorClick',
         mousemove: 'onDrag'
       }
     },
