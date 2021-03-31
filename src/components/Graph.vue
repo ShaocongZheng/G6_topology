@@ -100,10 +100,6 @@ export default {
     const grid = new G6.Grid()
     const width = document.getElementById('canvas').clientWidth
     const height = document.getElementById('canvas').scrollHeight || 500
-    console.log(width, height, this.$refs.canvas.scrollHeight, this.$refs.canvas.scrollWidth)
-    G6.registerNode('custom-modelRect', {
-
-    }, 'modelRect')
     this.graph = new G6.Graph({
       container: 'canvas', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
       width: width, // Number，必须，图的宽度
@@ -133,18 +129,11 @@ export default {
         style: {
           // stroke: 'rgba(255,255,255,0)',
           // fill: 'rgba(55,100,255,0.5)',
-          stroke: 'black',
-          background: {
-            fill: 'red',
-            stroke: 'green',
-            padding: [3, 2, 3, 2],
-            radius: 2,
-            lineWidth: 3
-          }
+          stroke: 'black'
           // fill: 'white'
         }
       },
-      ...nodeStateStyle,
+      // ...nodeStateStyle,
       modes: {
         default: [
           'drag-canvas',
@@ -184,11 +173,10 @@ export default {
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
     this.$store.commit('graph/setGraph', this.graph)
-    this.graph.find('node', (node) => {
-      if (node.get('model').class === 'c0') {
-        this.graph.setItemState(node, 'warning', true)
-      }
-      return node.get('model').x === 100
+    this.showAlertNodes('class', ['c0', 'c1'], 'warning')
+    // 不明原因导致锚点拖拽后capture为false，需要重新设置
+    this.graph.on('node:dragend', e => {
+      e.item.getContainer().set('capture', true)
     })
   },
   afterMount () {
@@ -208,6 +196,16 @@ export default {
           e.dataTransfer.setDragImage(ghost, 0, 0)
         })
       })
+    },
+    showAlertNodes (key, list, state) {
+      for (const i of list) {
+        this.graph.find('node', (node) => {
+          if (node.get('model')[key] === i) {
+            this.graph.setItemState(node, state, true)
+            return true
+          }
+        })
+      }
     }
   }
 }

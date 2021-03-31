@@ -59,6 +59,7 @@ export default {
     lineWidth: 1
   },
   edgeDelegationStyle: { stroke: '#1890FF', lineDash: [4, 4], lineWidth: 1 },
+
   anchor: {
     default: {
       r: 0, fill: '#fff', stroke: '#1890FF', lineAppendWidth: 12
@@ -71,6 +72,24 @@ export default {
     },
     hotspot: {
       r: 12, fill: '#1890FF', fillOpacity: 0.25
+    }
+  },
+  nodeStateStyle: {
+    default: {
+
+    },
+    hover: {
+      cursor: 'pointer'
+    },
+    selected: {
+      stroke: 'rgb(95, 149, 255)',
+      lineWidth: 2,
+      fill: 'rgb(253, 253, 253)',
+      shadowColor: 'rgb(95, 149, 255)',
+      shadowBlur: 10,
+      'text-shape': {
+        fontWeight: 500
+      }
     }
   }
 }

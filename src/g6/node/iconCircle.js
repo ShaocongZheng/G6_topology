@@ -1,4 +1,5 @@
 import defaultStyle from '../config/defaultStyle'
+import { mix } from '@antv/util'
 var _tslib = require('tslib')
 
 var _g6Core = require('@antv/g6-core')
@@ -46,7 +47,8 @@ export default function (G6) {
         width: 30,
         height: 30
       },
-      stateStyles: (0, _tslib.__assign)({}, _g6Core.BaseGlobal.nodeStateStyles)
+      // stateStyles: (0, _tslib.__assign)({}, _g6Core.BaseGlobal.nodeStateStyles)
+      stateStyles: defaultStyle.nodeStateStyle
     },
     shapeType: 'iconCircle',
     drawShape: function drawShape (cfg, group) {
@@ -96,10 +98,11 @@ export default function (G6) {
       })
       var keyShape = group.addShape('circle', {
         zIndex: 1,
-        attrs: style,
-        className: this.type + '-keyShape',
+        attrs: mix(this.options, style),
+        className: 'keyShape',
         draggable: true
       })
+      console.log(mix(this.options, style))
       var width = icon.width
       var height = icon.height
       var show = icon.show
@@ -221,6 +224,10 @@ export default function (G6) {
         }
       } else if (name === 'active-anchor') {
         if (value.active) {
+          const oldPoint = group.find(i => i.cfg.name === this.activeLinkPoint)
+          if (oldPoint) {
+            oldPoint.attr({ ...defaultStyle.anchor.show })
+          }
           this.activeLinkPoint = value.linkPoint
           const point = group.find(i => i.cfg.name === value.linkPoint)
           point.attr({ ...defaultStyle.anchor.hover })
@@ -238,6 +245,11 @@ export default function (G6) {
         //   rect.attr('fill', this.options.style.fill)
         // }
       } else if (name === 'hover') {
+        if (value) {
+          console.log(group)
+          const keyShape = group.getChildByIndex(3)
+          keyShape.attr({ ...defaultStyle.nodeStateStyle.hover })
+        }
         // const rect = group.getChildByIndex(1)
         // const text = group.getChildByIndex(2)
         // if (value) {
@@ -249,7 +261,6 @@ export default function (G6) {
         // }
       } else if (name === 'warning') {
         const shape = item.get('keyShape')
-        console.log(group.getChildren())
         const cfg = this.options
         if (value) {
           let r = cfg.size + 10
@@ -259,22 +270,6 @@ export default function (G6) {
           const back1 = group.getChildByIndex(0)
           const back2 = group.getChildByIndex(1)
           const back3 = group.getChildByIndex(2)
-          // circle.animate(
-          //   {
-          //     // r: cfg.r + 10,
-          //     // stroke: 'red',
-          //     // opacity: 0.1
-          //     // shadowColor: 'red',
-          //     // shadowBlur: 50,
-          //     // shadowOffsetY: 10
-          //   },
-          //   {
-          //     repeat: true, // 循环
-          //     duration: 2000,
-          //     easing: 'easeCubic',
-          //     delay: 1000 // 1 秒延迟
-          //   }
-          // )
 
           // 第一个背景圆逐渐放大，并消失
           back1.animate(

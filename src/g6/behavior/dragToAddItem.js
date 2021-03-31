@@ -50,18 +50,6 @@ export default function (G6) {
     onMouseUp (e) {
       if (this.graph.get('addNodeDragging')) {
         const p = this.graph.getPointByClient(e.clientX, e.clientY)
-        const subProcessNode = this.graph.find('node', (node) => {
-          if (node.get('model')) {
-            const clazz = node.get('model').clazz
-            if (clazz === 'subProcess') {
-              const bbox = node.getBBox()
-              return p.x > bbox.minX && bbox.maxX > p.x &&
-                p.y > bbox.minY && bbox.maxY > p.y
-            }
-          } else {
-            return false
-          }
-        })
 
         this._addNode(p)
       }
