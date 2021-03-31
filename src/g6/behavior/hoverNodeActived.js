@@ -31,6 +31,7 @@ export default function (G6) {
       // if (!this.graph.get('edgeDragging')) {
       this.graph.setItemState(e.item, 'show-anchor', true)
       this.graph.setItemState(e.item, 'hover', true)
+      console.log('enter')
       // this.graph.setItemState(e.item, 'active-anchor', true)
       // }
     },

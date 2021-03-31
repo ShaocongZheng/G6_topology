@@ -213,10 +213,10 @@ export default function (G6) {
             const linkPoint = group.getChildByIndex(i)
             linkPoint.attr({ ...defaultStyle.anchor.show })
           }
-
-        //   group.showAnchor()
+          console.log('t', group)
+          //   group.showAnchor()
         } else {
-        //   group.clearAnchor()
+          //   group.clearAnchor()
           for (let i = 5; i <= 8; i++) {
             const linkPoint = group.getChildByIndex(i)
             linkPoint.attr({ ...defaultStyle.anchor.default })
@@ -224,19 +224,25 @@ export default function (G6) {
         }
       } else if (name === 'active-anchor') {
         if (value.active) {
-          const oldPoint = group.find(i => i.cfg.name === this.activeLinkPoint)
-          if (oldPoint) {
-            oldPoint.attr({ ...defaultStyle.anchor.show })
+          if (this.activeLinkPoint) {
+            const oldPoint = group.find(i => i.cfg.name === this.activeLinkPoint)
+            if (oldPoint) {
+              oldPoint.attr({ ...defaultStyle.anchor.show })
+            }
           }
           this.activeLinkPoint = value.linkPoint
           const point = group.find(i => i.cfg.name === value.linkPoint)
           point.attr({ ...defaultStyle.anchor.hover })
         } else {
-          const point = group.find(i => i.cfg.name === this.activeLinkPoint)
-          if (point) {
-            point.attr({ ...defaultStyle.anchor.show })
+          if (this.activeLinkPoint) {
+            console.log(this.activeLinkPoint)
+            const point = group.find(i => i.cfg.name === this.activeLinkPoint)
+            console.log(point)
+            if (point) {
+              point.attr({ ...defaultStyle.anchor.show })
+              this.activeLinkPoint = null
+            }
           }
-          this.activeLinkPoint = ''
         }
         // const rect = group.getChildByIndex(0)
         // if (value) {
@@ -248,7 +254,7 @@ export default function (G6) {
         if (value) {
           console.log(group)
           const keyShape = group.getChildByIndex(3)
-          keyShape.attr({ ...defaultStyle.nodeStateStyle.hover })
+          keyShape.attr('cursor', { ...defaultStyle.nodeStateStyle.hover })
         }
         // const rect = group.getChildByIndex(1)
         // const text = group.getChildByIndex(2)

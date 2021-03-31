@@ -136,7 +136,7 @@ export default {
       // ...nodeStateStyle,
       modes: {
         default: [
-          'drag-canvas',
+          // 'drag-canvas',
           'clickSelected',
           'drag-node',
           'drag-combo',

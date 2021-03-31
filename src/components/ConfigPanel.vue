@@ -43,7 +43,7 @@ $form-font-size: 8px;
   <div class="rightPanel">
     <el-tabs value="1">
       <el-tab-pane label="配置" name="1">
-        <el-collapse :value="['1']">
+        <el-collapse :value="['1', '2']">
             <!-- <el-collapse-item title="样式">
 
             </el-collapse-item> -->
@@ -60,6 +60,31 @@ $form-font-size: 8px;
                     </el-form-item>
                     <el-form-item label="模块名称">
                         <el-input v-model='selectedNode.label' @change="modelChange"></el-input>
+                    </el-form-item>
+                    <el-form-item label="英文名称">
+                        <el-input></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述">
+                        <el-input></el-input>
+                    </el-form-item>
+                    <el-form-item label="ip">
+                        <el-input ></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-collapse-item>
+            <el-collapse-item title="数据" name="2">
+                <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode">
+                    <el-form-item label="Sproject">
+                        <label>Sproject</label>
+                    </el-form-item>
+                    <el-form-item label="环境">
+                        <label>外围系统</label>
+                    </el-form-item>
+                    <el-form-item label="部署图名称">
+                        <label>部署图名称</label>
+                    </el-form-item>
+                    <el-form-item label="r">
+                        <el-input v-model='selectedNode.size' ></el-input>
                     </el-form-item>
                     <el-form-item label="英文名称">
                         <el-input></el-input>
