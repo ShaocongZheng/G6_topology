@@ -15,7 +15,7 @@ const mutations = {
   },
   setSelectedItems (state, selectedItems) {
     state.selectedItems = selectedItems
-    console.log(state.selectedItems)
+    console.log({ ...state.selectedItems })
   }
 }
 export default {

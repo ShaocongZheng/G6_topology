@@ -136,7 +136,7 @@ export default {
       // ...nodeStateStyle,
       modes: {
         default: [
-          // 'drag-canvas',
+          'drag-canvas',
           'clickSelected',
           'drag-node',
           'drag-combo',
@@ -173,7 +173,7 @@ export default {
     this.graph.data(data) // 读取 Step 2 中的数据源到图上
     this.graph.render() // 渲染图
     this.$store.commit('graph/setGraph', this.graph)
-    this.showAlertNodes('class', ['c0', 'c1'], 'warning')
+    this.showAlertNodes('class', ['c1'], 'serious')
     // 不明原因导致锚点拖拽后capture为false，需要重新设置
     this.graph.on('node:dragend', e => {
       e.item.getContainer().set('capture', true)

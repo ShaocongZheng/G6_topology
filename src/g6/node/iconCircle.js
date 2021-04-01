@@ -77,7 +77,7 @@ export default function (G6) {
           x: 0,
           y: 0,
           r,
-          fill: 'blue', // 为了显示清晰，随意设置了颜色
+          // fill: 'blue', // 为了显示清晰，随意设置了颜色
           opacity: 0.6
         },
         // must be assigned in G6 3.3 and later versions. it can be any value you want
@@ -90,7 +90,7 @@ export default function (G6) {
           x: 0,
           y: 0,
           r,
-          fill: 'green',
+          // fill: 'green',
           opacity: 0.6
         },
         // must be assigned in G6 3.3 and later versions. it can be any value you want
@@ -265,7 +265,7 @@ export default function (G6) {
         //   rect.attr('cursor', this.options.style.cursor)
         //   if (text) { text.attr('cursor', this.options.style.cursor) }
         // }
-      } else if (name === 'warning') {
+      } else if (name === 'warning' || name === 'serious') {
         const shape = item.get('keyShape')
         const cfg = this.options
         if (value) {
@@ -273,6 +273,13 @@ export default function (G6) {
           if (isNaN(r)) {
             r = cfg.size[0] + 10
           }
+          let color1, color2, color3
+          if (name === 'serious') {
+            color1 = 'yellow'
+            color2 = 'orange'
+            color3 = 'red'
+          }
+
           const back1 = group.getChildByIndex(0)
           const back2 = group.getChildByIndex(1)
           const back3 = group.getChildByIndex(2)
@@ -282,6 +289,7 @@ export default function (G6) {
             {
               r: r + 10,
               opacity: 0.1
+              // fill: color1 || ''
             },
             {
               repeat: true, // 循环
@@ -295,7 +303,8 @@ export default function (G6) {
           back2.animate(
             {
               r: r + 10,
-              opacity: 0.1
+              opacity: 0.1,
+              fill: color2 || ''
             },
             {
               repeat: true, // 循环
@@ -309,7 +318,8 @@ export default function (G6) {
           back3.animate(
             {
               r: r + 10,
-              opacity: 0.1
+              opacity: 0.1,
+              fill: color3 || ''
             },
             {
               repeat: true, // 循环

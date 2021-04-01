@@ -13,7 +13,8 @@ export default function (G6) {
         'node:dragstart': 'onAnchorClick',
         'node:drag': 'onDrag',
         'node:dragover': 'onDragOver',
-        'node:drop': 'onAnchorClick'
+        'node:drop': 'onAnchorClick',
+        'node:dragend': 'onDragEnd'
 
       }
     },
@@ -84,6 +85,14 @@ export default function (G6) {
           linkPoint: e.target.cfg.className,
           active: true
         })
+      }
+    },
+    onDragEnd (e) {
+      if (this.graph.get('edgeDragging')) {
+        this.graph.removeItem(this.graph.edge)
+        this.graph.edge = null
+        this.graph.set('edgeDragging', false)
+        this._clearAllAnchors()
       }
     },
     __showAllAnchors () {

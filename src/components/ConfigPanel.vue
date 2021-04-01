@@ -9,6 +9,7 @@ $form-font-size: 8px;
   padding: 0 5px;
   z-index: 998;
   box-shadow: 0 2px 2px 2px rgb(0 0 0 / 10%);
+  overflow-y: scroll;
 
   ::v-deep {
     .el-tabs__item {
@@ -48,7 +49,7 @@ $form-font-size: 8px;
 
             </el-collapse-item> -->
             <el-collapse-item title="数据" name="1">
-                <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode">
+                <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode.id">
                     <el-form-item label="Sproject">
                         <label>Sproject</label>
                     </el-form-item>
@@ -84,7 +85,7 @@ $form-font-size: 8px;
                         <label>部署图名称</label>
                     </el-form-item>
                     <el-form-item label="r">
-                        <el-input v-model='selectedNode.size' ></el-input>
+                        <el-input v-model='selectedNode.size' @input="modelChange"></el-input>
                     </el-form-item>
                     <el-form-item label="英文名称">
                         <el-input></el-input>
@@ -109,18 +110,30 @@ $form-font-size: 8px;
 export default {
   data () {
     return {
-
+      selectedNode: {
+        label: '',
+        id: '',
+        size: ''
+      }
     }
   },
   computed: {
     graph () {
       return this.$store.state.graph.graph
     },
-    selectedNode () {
+    selectedModel () {
       if (this.$store.state.graph.selectedItems.nodes.length === 1) {
         return this.$store.state.graph.selectedItems.nodes[0].getModel()
       }
       return null
+    }
+  },
+  watch: {
+    selectedModel (newVal, oldVal) {
+      if (newVal) {
+        const { ...tmp } = newVal
+        this.selectedNode = tmp
+      }
     }
   },
   created () {},
