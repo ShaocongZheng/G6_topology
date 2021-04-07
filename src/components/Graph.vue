@@ -34,7 +34,7 @@ import ItemPanel from './ItemPanel'
 import ToolBar from './Toolbar'
 import ConfigPanel from './ConfigPanel'
 import G6Register from '../g6'
-import nodeStateStyle from '../g6/config/nodeStateStyle'
+import defaultStyle from '../g6/config/defaultStyle'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
 import DragPanelPlugin from '../g6/plugins/DragPanel'
 G6Register(G6)
@@ -123,17 +123,13 @@ export default {
         labelCfg: {
           position: 'bottom',
           offset: 10
-
         },
-        // color: 'rgba(255,255,255,0)',
         style: {
-          // stroke: 'rgba(255,255,255,0)',
-          // fill: 'rgba(55,100,255,0.5)',
-          stroke: 'black'
-          // fill: 'white'
+          fill: 'rgb(253, 253, 253)',
+          stroke: 'red'
         }
       },
-      // ...nodeStateStyle,
+      defaultCombo: defaultStyle.defaultCombo,
       modes: {
         default: [
           'drag-canvas',
@@ -178,9 +174,6 @@ export default {
     this.graph.on('node:dragend', e => {
       e.item.getContainer().set('capture', true)
     })
-  },
-  afterMount () {
-    console.log(this.$refs.canvas.scrollHeight, this.$refs.canvas.scrollWidth)
   },
   methods: {
     initDragEvent () {

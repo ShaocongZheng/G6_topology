@@ -37,6 +37,9 @@ $form-font-size: 8px;
     .el-form {
       padding-left: 5px;
     }
+    .el-input-number--mini {
+      width: 100%;
+    }
   }
 }
 </style>
@@ -73,28 +76,22 @@ $form-font-size: 8px;
                     </el-form-item>
                 </el-form>
             </el-collapse-item>
-            <el-collapse-item title="数据" name="2">
+            <el-collapse-item title="样式" name="2">
                 <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode">
-                    <el-form-item label="Sproject">
-                        <label>Sproject</label>
+                    <el-form-item label="x">
+                      <el-input-number v-model="selectedNode.x" controls-position="right" @change="modelChange"></el-input-number>
                     </el-form-item>
-                    <el-form-item label="环境">
-                        <label>外围系统</label>
-                    </el-form-item>
-                    <el-form-item label="部署图名称">
-                        <label>部署图名称</label>
+                    <el-form-item label="y">
+                      <el-input-number v-model="selectedNode.y" controls-position="right" @change="modelChange"></el-input-number>
                     </el-form-item>
                     <el-form-item label="r">
                         <el-input v-model='selectedNode.size' @input="modelChange"></el-input>
                     </el-form-item>
-                    <el-form-item label="英文名称">
-                        <el-input></el-input>
+                    <el-form-item label="fill">
+                        <el-color-picker v-model="selectedNode.style.default.fill" show-alpha @change="modelChange"></el-color-picker>
                     </el-form-item>
-                    <el-form-item label="描述">
-                        <el-input></el-input>
-                    </el-form-item>
-                    <el-form-item label="ip">
-                        <el-input ></el-input>
+                    <el-form-item label="stroke">
+                        <el-color-picker v-model="selectedNode.style.default.stroke" show-alpha @change="modelChange"></el-color-picker>
                     </el-form-item>
                 </el-form>
             </el-collapse-item>
@@ -113,7 +110,16 @@ export default {
       selectedNode: {
         label: '',
         id: '',
-        size: ''
+        size: '',
+        x: 0,
+        y: 0,
+        style: {
+          default: {
+            fill: '',
+            stroke: ''
+          }
+
+        }
       }
     }
   },
@@ -129,11 +135,30 @@ export default {
     }
   },
   watch: {
-    selectedModel (newVal, oldVal) {
-      if (newVal) {
-        const { ...tmp } = newVal
-        this.selectedNode = tmp
-      }
+    selectedModel: {
+      handler (newVal, oldVal) {
+        if (newVal) {
+          const {
+            ...tmp
+          } = newVal
+          this.selectedNode = tmp
+        } else {
+          this.selectedNode = {
+            label: '',
+            id: '',
+            size: '',
+            x: 0,
+            y: 0,
+            style: {
+              default: {
+                fill: '',
+                stroke: ''
+              }
+            }
+          }
+        }
+      },
+      deep: true
     }
   },
   created () {},
@@ -142,7 +167,9 @@ export default {
   },
   methods: {
     modelChange () {
+      console.log(this.selectedNode)
       this.$store.state.graph.selectedItems.nodes[0].update(this.selectedNode)
+      // this.graph.render()
     }
   }
 }

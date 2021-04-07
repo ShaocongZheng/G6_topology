@@ -17,9 +17,12 @@ export default function (G6) {
       }
     },
     onClick (e) {
-      // this.graph.setItemState(e.item, 'selected', true)
-      console.log(e.target, e.selectedItems)
-      store.commit('graph/setSelectedItems', e.selectedItems)
+      if (e.target) {
+        this.graph.setItemState(e.target, 'selected', true)
+      }
+
+      console.log(e)
+      store.commit('graph/setSelectedNodes', e.selectedItems.nodes)
     }
   //   onClick (e) {
   //     this._clearSelected()

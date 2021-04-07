@@ -12,8 +12,10 @@ export default function (G6) {
       style: {
         x: 0,
         y: 0,
-        stroke: _g6Core.BaseGlobal.defaultNode.style.stroke,
-        fill: _g6Core.BaseGlobal.defaultNode.style.fill,
+        // stroke: _g6Core.BaseGlobal.defaultNode.style.stroke,
+        // fill: _g6Core.BaseGlobal.defaultNode.style.fill,
+        stroke: defaultStyle.nodeStateStyle.default.stroke,
+        fill: defaultStyle.nodeStateStyle.default.fill,
         lineWidth: _g6Core.BaseGlobal.defaultNode.style.lineWidth
       },
       labelCfg: {
@@ -96,13 +98,13 @@ export default function (G6) {
         // must be assigned in G6 3.3 and later versions. it can be any value you want
         name: 'circle-shape3'
       })
+      console.log(cfg, style)
       var keyShape = group.addShape('circle', {
         zIndex: 1,
-        attrs: mix(this.options, style),
+        attrs: mix(this.options.style, style),
         className: 'keyShape',
         draggable: true
       })
-      console.log(mix(this.options, style))
       var width = icon.width
       var height = icon.height
       var show = icon.show
@@ -213,7 +215,6 @@ export default function (G6) {
             const linkPoint = group.getChildByIndex(i)
             linkPoint.attr({ ...defaultStyle.anchor.show })
           }
-          console.log('t', group)
           //   group.showAnchor()
         } else {
           //   group.clearAnchor()
@@ -235,36 +236,18 @@ export default function (G6) {
           point.attr({ ...defaultStyle.anchor.hover })
         } else {
           if (this.activeLinkPoint) {
-            console.log(this.activeLinkPoint)
             const point = group.find(i => i.cfg.name === this.activeLinkPoint)
-            console.log(point)
             if (point) {
               point.attr({ ...defaultStyle.anchor.show })
               this.activeLinkPoint = null
             }
           }
         }
-        // const rect = group.getChildByIndex(0)
-        // if (value) {
-        //   rect.attr('fill', this.options.stateStyles.selected.fill)
-        // } else {
-        //   rect.attr('fill', this.options.style.fill)
-        // }
       } else if (name === 'hover') {
         if (value) {
-          console.log(group)
           const keyShape = group.getChildByIndex(3)
           keyShape.attr('cursor', { ...defaultStyle.nodeStateStyle.hover })
         }
-        // const rect = group.getChildByIndex(1)
-        // const text = group.getChildByIndex(2)
-        // if (value) {
-        //   rect.attr('cursor', this.options.stateStyles.hover.cursor)
-        //   if (text) { text.attr('cursor', this.options.stateStyles.hover.cursor) }
-        // } else {
-        //   rect.attr('cursor', this.options.style.cursor)
-        //   if (text) { text.attr('cursor', this.options.style.cursor) }
-        // }
       } else if (name === 'warning' || name === 'serious') {
         const shape = item.get('keyShape')
         const cfg = this.options
@@ -332,6 +315,13 @@ export default function (G6) {
           // running 状态为 false 时
           // 结束动画
           shape.stopAnimate()
+        }
+      } else if (name === 'selected') {
+        const keyShape = group.getChildByIndex(3)
+        if (value) {
+          keyShape.attr({ ...defaultStyle.nodeStateStyle.selected })
+        } else {
+          keyShape.attr({ ...defaultStyle.nodeStateStyle.default })
         }
       }
     }

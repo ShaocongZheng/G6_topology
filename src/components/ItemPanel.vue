@@ -46,7 +46,7 @@ $img-length: 30px;
 </style>
 <template>
   <div class="itemPanel">
-    <el-collapse>
+    <el-collapse value="1">
       <el-collapse-item title="图标" name="1">
         <div class="panelContent">
           <div
@@ -54,7 +54,18 @@ $img-length: 30px;
             v-for="(item, index) in itemList"
             :key="index + item.name"
           >
-            <img :src="item.url" :data-model="item.url" />
+            <img :src="item.url" :data-img="item.url" :data-type="item.type" data-mainType="node"/>
+          </div>
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="combo" name="2">
+        <div class="panelContent">
+          <div
+            class="itemBox"
+            v-for="(item, index) in comboList"
+            :key="index + item.name"
+          >
+            <img :src="item.url" :data-img="item.url" :data-type="item.type" data-mainType="combo"/>
           </div>
         </div>
       </el-collapse-item>
@@ -73,42 +84,62 @@ export default {
         {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
-          model: '储存器_memory-one.svg'
+          img: '储存器_memory-one.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
-          model: '数据服务器_data-server.svg'
+          img: '数据服务器_data-server.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/云存储_cloud-storage.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/云存储_cloud-storage.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
-          model: '云存储_cloud-storage.svg'
+          img: '云存储_cloud-storage.svg',
+          type: 'iconCircle'
+        }
+      ],
+      comboList: [
+        {
+          name: 'pc',
+          url: require('../../public/images/icon/circle.svg'),
+          type: 'circle'
+        },
+        {
+          name: 'pc',
+          url: require('../../public/images/icon/rect.svg'),
+          type: 'rect'
         }
       ]
     }

@@ -76,20 +76,30 @@ export default {
   },
   nodeStateStyle: {
     default: {
-
+      fill: 'rgb(250, 250, 250)',
+      lineWidth: 1,
+      shadowBlur: 0,
+      stroke: 'grey'
     },
     hover: {
       cursor: 'pointer'
     },
     selected: {
-      stroke: 'rgb(95, 149, 255)',
-      lineWidth: 2,
       fill: 'rgb(253, 253, 253)',
-      shadowColor: 'rgb(95, 149, 255)',
-      shadowBlur: 10,
-      'text-shape': {
-        fontWeight: 500
-      }
+      lineWidth: 2,
+      shadowBlur: 2,
+      // shadowColor: 'rgb(95, 149, 255)',
+      stroke: 'rgb(95, 149, 255)'
+    }
+  },
+  defaultCombo: {
+    // ... 其他属性
+    size: 80,
+    style: {
+      // fill: '#steelblue',
+      // stroke: '#eaff8f',
+      // lineWidth: 5
+      // ... 其他属性
     }
   }
 }

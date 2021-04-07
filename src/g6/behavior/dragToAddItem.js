@@ -72,8 +72,14 @@ export default function (G6) {
     _addNode (p) {
       if (this.graph.get('addNodeDragging')) {
         const addModel = this.graph.get('addModel')
-        addModel.type = 'image'
-        addModel.img = addModel.modelName
+        // addModel.type = 'image'
+        // addModel.img = addModel.modelName
+
+        if (addModel.type === 'iconCircle') {
+          addModel.icon = {
+            img: addModel.img
+          }
+        }
         console.log(addModel)
         const { clazz = 'userTask' } = addModel
         // type、shape属性同时存在即兼容之前版本的数据，又兼容g6的升级
@@ -83,24 +89,14 @@ export default function (G6) {
         const id = clazz + timestamp
         const x = p.x
         const y = p.y
-        if (this.graph.executeCommand) {
-          this.graph.executeCommand('add', {
-            type: 'node',
-            addModel: {
-              ...addModel,
-              x: x,
-              y: y,
-              id: id
-            }
-          })
-        } else {
-          this.graph.add('node', {
-            ...addModel,
-            x: x,
-            y: y,
-            id: id
-          })
-        }
+
+        this.graph.add(addModel.mainType, {
+          ...addModel,
+          x: x,
+          y: y,
+          id: id
+        })
+
         this._clearDelegate()
       }
     }

@@ -16,6 +16,9 @@ const mutations = {
   setSelectedItems (state, selectedItems) {
     state.selectedItems = selectedItems
     console.log({ ...state.selectedItems })
+  },
+  setSelectedNodes (state, selectedNodes) {
+    state.selectedItems.nodes = selectedNodes
   }
 }
 export default {

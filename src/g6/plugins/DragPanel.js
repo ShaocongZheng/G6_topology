@@ -81,14 +81,15 @@ var DragPanel =
       var graph = this.get('graph')
 
       const ghost = createDom('<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"' + ' style="opacity:0"/>')
-      const panel = document.getElementsByClassName('panelContent')[0]
+      const panel = document.getElementsByClassName('itemPanel')[0]
       //   const children = panel.querySelectorAll('.itemBox > img')
       panel.addEventListener('dragstart', e => {
         if (e.target.tagName === 'IMG') {
-          const addModel = e.target.dataset.model
+          const addModel = e.target.dataset
+          console.log(addModel)
           e.dataTransfer.setDragImage(ghost, 0, 0)
           graph.set('addNodeDragging', true)
-          graph.set('addModel', { modelName: addModel })
+          graph.set('addModel', { mainType: addModel.maintype, type: addModel.type, img: addModel.img })
         }
       })
       panel.addEventListener('dragend', e => {
@@ -100,25 +101,25 @@ var DragPanel =
       })
     }
 
-    DragPanel.prototype.destroy = function () {
-      var toolBar = this.get('toolBar')
+    // DragPanel.prototype.destroy = function () {
+    //   var toolBar = this.get('toolBar')
 
-      if (toolBar) {
-        var container = this.get('container')
+    //   if (toolBar) {
+    //     var container = this.get('container')
 
-        if (!container) {
-          container = this.get('graph').get('container')
-        }
+    //     if (!container) {
+    //       container = this.get('graph').get('container')
+    //     }
 
-        container.removeChild(toolBar)
-      }
+    //     container.removeChild(toolBar)
+    //   }
 
-      var handleClick = this.get('handleClick')
+    //   var handleClick = this.get('handleClick')
 
-      if (handleClick) {
-        toolBar.removeEventListener('click', handleClick)
-      }
-    }
+    //   if (handleClick) {
+    //     toolBar.removeEventListener('click', handleClick)
+    //   }
+    // }
 
     return DragPanel
   }(Base))
