@@ -29,15 +29,16 @@ export default function (G6) {
     },
     onNodeEnter (e) {
       // if (!this.graph.get('edgeDragging')) {
-      this.graph.setItemState(e.item, 'show-anchor', true)
-      this.graph.setItemState(e.item, 'hover', true)
-      console.log('enter')
+      if (!this.graph.get('addNodeDragging')) {
+        this.graph.setItemState(e.item, 'show-anchor', true)
+        this.graph.setItemState(e.item, 'hover', true)
+      }
+
       // this.graph.setItemState(e.item, 'active-anchor', true)
       // }
     },
     onNodeLeave (e) {
       // console.log('mouseleave', e.item.getModel(), e.target)
-      this.graph.setItemState(e.item, 'hover', true)
       if (!this.graph.get('edgeDragging')) {
         const node = e.item
         const group = node.getContainer()

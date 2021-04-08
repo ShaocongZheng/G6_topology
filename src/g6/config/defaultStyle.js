@@ -79,17 +79,21 @@ export default {
       fill: 'rgb(250, 250, 250)',
       lineWidth: 1,
       shadowBlur: 0,
-      stroke: 'grey'
+      stroke: '#777'
     },
     hover: {
       cursor: 'pointer'
     },
+    unselected: {
+      lineWidth: 1,
+      shadowBlur: 0
+    },
     selected: {
-      fill: 'rgb(253, 253, 253)',
-      lineWidth: 2,
-      shadowBlur: 2,
+      // fill: 'rgb(253, 253, 253)',
+      lineWidth: 3,
+      shadowBlur: 2
       // shadowColor: 'rgb(95, 149, 255)',
-      stroke: 'rgb(95, 149, 255)'
+      // stroke: 'rgb(95, 149, 255)'
     }
   },
   defaultCombo: {

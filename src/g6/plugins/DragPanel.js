@@ -87,9 +87,28 @@ var DragPanel =
         if (e.target.tagName === 'IMG') {
           const addModel = e.target.dataset
           console.log(addModel)
+          let model = {}
+          if (addModel.moduletype === 'server') {
+            model = {
+              label: 'server',
+              mainType: addModel.maintype,
+              type: addModel.type,
+              img: addModel.img,
+              data: {
+                ip: '',
+                desc: '',
+                enName: '',
+                machineRoom: '',
+                region: '',
+                cpu: 4,
+                memory: 8,
+                hardDrive: 1024
+              }
+            }
+          }
           e.dataTransfer.setDragImage(ghost, 0, 0)
           graph.set('addNodeDragging', true)
-          graph.set('addModel', { mainType: addModel.maintype, type: addModel.type, img: addModel.img })
+          graph.set('addModel', model)
         }
       })
       panel.addEventListener('dragend', e => {

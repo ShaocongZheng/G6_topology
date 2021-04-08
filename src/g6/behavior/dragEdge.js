@@ -2,6 +2,7 @@ import editorStyle from '../config/defaultStyle'
 // import { Marker } from '@antv/g6-core/lib/element/shape'
 
 import { Marker } from '@antv/g-canvas/lib/shape'
+import store from '../../store'
 
 export default function (G6) {
   G6.registerBehavior('dragEdge', {
@@ -10,15 +11,15 @@ export default function (G6) {
         // 'node:click': 'onAnchorClick',
         // mousemove: 'onDrag'
 
-        'node:dragstart': 'onAnchorClick',
+        'node:dragstart': 'onDragStart',
         'node:drag': 'onDrag',
         'node:dragover': 'onDragOver',
-        'node:drop': 'onAnchorClick',
+        'node:drop': 'onDragStart',
         'node:dragend': 'onDragEnd'
 
       }
     },
-    onAnchorClick (e) {
+    onDragStart (e) {
       const node = e.item
       const group = node.getContainer()
       console.log('dragstart')
@@ -69,11 +70,14 @@ export default function (G6) {
         x: e.x,
         y: e.y
       }
-      if (this.graph.edge) {
-        if (this.graph.get('edgeDragging') && this.graph.edge) {
-          this.graph.updateItem(this.graph.edge, {
-            target: point
-          })
+
+      if (this.graph.get('edgeDragging') && this.graph.edge) {
+        this.graph.updateItem(this.graph.edge, {
+          target: point
+        })
+      } else {
+        if (e.item === store.state.graph.selectedItems.nodes[0]) {
+          store.commit('graph/setSelectedNodes', [e.item])
         }
       }
     },

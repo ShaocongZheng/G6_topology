@@ -3,11 +3,6 @@ import editorStyle from '../config/defaultStyle'
 
 export default function (G6) {
   G6.registerBehavior('dragToAddItem', {
-    getDefaultCfg () {
-      return {
-
-      }
-    },
     getEvents () {
       return {
         dragover: 'onMouseMove',

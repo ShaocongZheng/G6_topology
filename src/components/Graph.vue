@@ -125,8 +125,7 @@ export default {
           offset: 10
         },
         style: {
-          fill: 'rgb(253, 253, 253)',
-          stroke: 'red'
+          ...defaultStyle.nodeStateStyle.default
         }
       },
       defaultCombo: defaultStyle.defaultCombo,

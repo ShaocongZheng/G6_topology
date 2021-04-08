@@ -47,59 +47,73 @@ $form-font-size: 8px;
   <div class="rightPanel">
     <el-tabs value="1">
       <el-tab-pane label="配置" name="1">
-        <el-collapse :value="['1', '2']">
-            <!-- <el-collapse-item title="样式">
+        <el-collapse :value="['1']" >
+          <!-- <el-collapse-item title="样式">
 
             </el-collapse-item> -->
-            <el-collapse-item title="数据" name="1">
-                <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode.id">
-                    <el-form-item label="Sproject">
-                        <label>Sproject</label>
-                    </el-form-item>
-                    <el-form-item label="环境">
-                        <label>外围系统</label>
-                    </el-form-item>
-                    <el-form-item label="部署图名称">
-                        <label>部署图名称</label>
-                    </el-form-item>
-                    <el-form-item label="模块名称">
-                        <el-input v-model='selectedNode.label' @change="modelChange"></el-input>
-                    </el-form-item>
-                    <el-form-item label="英文名称">
-                        <el-input></el-input>
-                    </el-form-item>
-                    <el-form-item label="描述">
-                        <el-input></el-input>
-                    </el-form-item>
-                    <el-form-item label="ip">
-                        <el-input ></el-input>
-                    </el-form-item>
-                </el-form>
-            </el-collapse-item>
-            <el-collapse-item title="样式" name="2">
-                <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode">
-                    <el-form-item label="x">
-                      <el-input-number v-model="selectedNode.x" controls-position="right" @change="modelChange"></el-input-number>
-                    </el-form-item>
-                    <el-form-item label="y">
-                      <el-input-number v-model="selectedNode.y" controls-position="right" @change="modelChange"></el-input-number>
-                    </el-form-item>
-                    <el-form-item label="r">
-                        <el-input v-model='selectedNode.size' @input="modelChange"></el-input>
-                    </el-form-item>
-                    <el-form-item label="fill">
-                        <el-color-picker v-model="selectedNode.style.default.fill" show-alpha @change="modelChange"></el-color-picker>
-                    </el-form-item>
-                    <el-form-item label="stroke">
-                        <el-color-picker v-model="selectedNode.style.default.stroke" show-alpha @change="modelChange"></el-color-picker>
-                    </el-form-item>
-                </el-form>
-            </el-collapse-item>
+          <el-collapse-item title="数据" name="1" v-if="selectedNode.id" >
+            <el-form size="mini" label-position="left" label-width="80px" >
+              <el-form-item label="Sproject">
+                <label>Sproject</label>
+              </el-form-item>
+              <el-form-item label="环境">
+                <label>外围系统</label>
+              </el-form-item>
+              <el-form-item label="部署图名称">
+                <label>部署图名称</label>
+              </el-form-item>
+              <el-form-item label="id">
+                <el-input v-model='selectedNode.id' disabled></el-input>
+              </el-form-item>
+              <el-form-item label="模块名称">
+                <el-input v-model='selectedNode.label' @change="modelChange"></el-input>
+              </el-form-item>
+              <el-form-item label="英文名称">
+                <el-input v-model='selectedNode.enName'></el-input>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input v-model='selectedNode.desc'></el-input>
+              </el-form-item>
+              <el-form-item :label="name" v-for="(value, name) in selectedModel.data" :key="name">
+                <el-input v-model='selectedNode.data[name]'></el-input>
+              </el-form-item>
+              <el-form-item label="机房">
+                <el-input v-model='selectedNode.machineRoom'></el-input>
+              </el-form-item>
+              <el-form-item label="区域">
+                <el-input v-model='selectedNode.zone'></el-input>
+              </el-form-item>
+            </el-form>
+          </el-collapse-item>
+
         </el-collapse>
       </el-tab-pane>
-      <!-- <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-      <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-      <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane> -->
+      <el-tab-pane label="样式" name="2">
+        <el-collapse :value="['1']">
+          <el-collapse-item title="样式" name="1">
+            <el-form size="mini" label-position="left" label-width="80px" v-if="selectedNode">
+              <el-form-item label="x">
+                <el-input-number v-model="selectedNode.x" controls-position="right" @change="modelChange">
+                </el-input-number>
+              </el-form-item>
+              <el-form-item label="y">
+                <el-input-number v-model="selectedNode.y" controls-position="right" @change="modelChange">
+              </el-input-number>
+              </el-form-item>
+              <el-form-item label="r">
+                <el-input-number v-model="selectedNode.size" controls-position="right" @change="modelChange">
+                   </el-input-number>
+              </el-form-item>
+              <el-form-item label="fill">
+                <el-color-picker v-model="selectedNode.style.fill" show-alpha @change="modelChange"></el-color-picker>
+              </el-form-item>
+              <el-form-item label="stroke">
+                <el-color-picker v-model="selectedNode.style.stroke" show-alpha @change="modelChange"></el-color-picker>
+              </el-form-item>
+            </el-form>
+          </el-collapse-item>
+        </el-collapse>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -113,12 +127,10 @@ export default {
         size: '',
         x: 0,
         y: 0,
+        data: {},
         style: {
-          default: {
-            fill: '',
-            stroke: ''
-          }
-
+          fill: '',
+          stroke: ''
         }
       }
     }
@@ -142,6 +154,7 @@ export default {
             ...tmp
           } = newVal
           this.selectedNode = tmp
+          console.log(this.selectedNode)
         } else {
           this.selectedNode = {
             label: '',
@@ -149,11 +162,10 @@ export default {
             size: '',
             x: 0,
             y: 0,
+            data: {},
             style: {
-              default: {
-                fill: '',
-                stroke: ''
-              }
+              fill: '',
+              stroke: ''
             }
           }
         }
@@ -168,8 +180,8 @@ export default {
   methods: {
     modelChange () {
       console.log(this.selectedNode)
-      this.$store.state.graph.selectedItems.nodes[0].update(this.selectedNode)
-      // this.graph.render()
+      this.graph.updateItem(this.$store.state.graph.selectedItems.nodes[0], this.selectedNode)
+      // this.graph.refresh()
     }
   }
 }

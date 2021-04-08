@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" scoped>
 $itemBox-length: 20%;
 $img-length: 30px;
 
@@ -35,11 +35,16 @@ $img-length: 30px;
       }
     }
   }
-  .el-collapse .el-collapse-item {
-    > div[role='tab'] > div {
-      padding-left: 10px;
-      // border: 1px solid #e9e9e9;
-      border-left: 0;
+  ::v-deep {
+    .el-collapse .el-collapse-item {
+      > div[role='tab'] > div {
+        padding-left: 10px;
+        // border: 1px solid #e9e9e9;
+        border-left: 0;
+      }
+    }
+    .el-collapse-item__content {
+      padding-bottom: 0;
     }
   }
 }
@@ -54,7 +59,7 @@ $img-length: 30px;
             v-for="(item, index) in itemList"
             :key="index + item.name"
           >
-            <img :src="item.url" :data-img="item.url" :data-type="item.type" data-mainType="node"/>
+            <img :src="item.url" :data-img="item.url" :data-type="item.type" :data-moduletype="item.moduleType"  data-mainType="node"/>
           </div>
         </div>
       </el-collapse-item>
@@ -65,7 +70,7 @@ $img-length: 30px;
             v-for="(item, index) in comboList"
             :key="index + item.name"
           >
-            <img :src="item.url" :data-img="item.url" :data-type="item.type" data-mainType="combo"/>
+            <img :src="item.url" :data-img="item.url" :data-type="item.type" :data-moduletype="item.moduleType" data-mainType="combo"/>
           </div>
         </div>
       </el-collapse-item>
@@ -85,61 +90,71 @@ export default {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
           img: '储存器_memory-one.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'database'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
           img: '数据服务器_data-server.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/云存储_cloud-storage.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/云存储_cloud-storage.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/储存器_memory-one.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'server'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/数据服务器_data-server.svg'),
           img: '云存储_cloud-storage.svg',
-          type: 'iconCircle'
+          type: 'iconCircle',
+          moduleType: 'cloud'
         }
       ],
       comboList: [
         {
           name: 'pc',
           url: require('../../public/images/icon/circle.svg'),
-          type: 'circle'
+          type: 'circle',
+          moduleType: 'region'
         },
         {
           name: 'pc',
           url: require('../../public/images/icon/rect.svg'),
-          type: 'rect'
+          type: 'rect',
+          moduleType: 'region'
         }
       ]
     }

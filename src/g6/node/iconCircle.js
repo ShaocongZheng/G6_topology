@@ -321,7 +321,7 @@ export default function (G6) {
         if (value) {
           keyShape.attr({ ...defaultStyle.nodeStateStyle.selected })
         } else {
-          keyShape.attr({ ...defaultStyle.nodeStateStyle.default })
+          keyShape.attr({ ...defaultStyle.nodeStateStyle.unselected })
         }
       }
     }
