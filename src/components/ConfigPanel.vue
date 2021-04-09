@@ -51,6 +51,10 @@ $form-font-size: 8px;
           <!-- <el-collapse-item title="样式">
 
             </el-collapse-item> -->
+            <el-switch
+              v-model="seriousState"
+              active-text="严重告警">
+            </el-switch>
           <el-collapse-item title="数据" name="1" v-if="selectedNode.id" >
             <el-form size="mini" label-position="left" label-width="80px" >
               <el-form-item label="Sproject">
@@ -144,6 +148,17 @@ export default {
         return this.$store.state.graph.selectedItems.nodes[0].getModel()
       }
       return null
+    },
+    seriousState: {
+      get () {
+        if (this.$store.state.graph.selectedItems.nodes.length === 1) {
+          return this.$store.state.graph.selectedItems.nodes[0].hasState('serious')
+        }
+        return false
+      },
+      set (newVal) {
+        this.graph.setItemState(this.$store.state.graph.selectedItems.nodes[0], 'serious', newVal)
+      }
     }
   },
   watch: {
@@ -154,7 +169,6 @@ export default {
             ...tmp
           } = newVal
           this.selectedNode = tmp
-          console.log(this.selectedNode)
         } else {
           this.selectedNode = {
             label: '',
@@ -175,11 +189,9 @@ export default {
   },
   created () {},
   mounted () {
-    console.log(this.selectedNode)
   },
   methods: {
     modelChange () {
-      console.log(this.selectedNode)
       this.graph.updateItem(this.$store.state.graph.selectedItems.nodes[0], this.selectedNode)
       // this.graph.refresh()
     }

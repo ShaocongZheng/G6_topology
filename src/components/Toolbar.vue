@@ -5,13 +5,14 @@ $toolbar-height: 40px;
   position: relative;
   box-shadow: 0 0 2px 2px rgb(0 0 0 / 10%);
   z-index: 999;
+  height: $toolbar-height;
   ul {
     list-style-type: none;
-    padding: 6px;
+    // padding: 6px;
     // left: 0px;
     // top: 0px;
-    height: $toolbar-height;
-    background-color: rgba(255, 255, 255, 0.9);
+    line-height: $toolbar-height;
+    // background-color: rgba(255, 255, 255, 0.9);
     // border: 1px solid #e2e2e2;
     border-radius: 4px;
     font-size: 12px;
@@ -24,6 +25,7 @@ $toolbar-height: 40px;
       float: left;
       text-align: center;
       width: 35px;
+      height: 40px;
       cursor: pointer;
       list-style-type: none;
       list-style: none;
@@ -32,7 +34,7 @@ $toolbar-height: 40px;
       .iconfont {
         font-size: 20px;
         // opacity: .8;
-        line-height: 24px;
+        // line-height: 24px;
       }
       .iconfont:hover {
           // opacity: 1;
@@ -50,7 +52,10 @@ $toolbar-height: 40px;
         </el-button-group> -->
     <ul id="toolbarList">
       <li v-for="(item, index) in toolList" :key="index" :code="item.code">
-        <span :class="'iconfont ' + item.icon"></span>
+        <span :class="'iconfont ' + item.icon" style="line-height:40px"></span>
+      </li>
+      <li code="exportImg">
+        <el-button plain size="small" :autofocus="false">导出图片</el-button>
       </li>
     </ul>
   </div>

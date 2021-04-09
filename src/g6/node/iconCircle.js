@@ -98,7 +98,6 @@ export default function (G6) {
         // must be assigned in G6 3.3 and later versions. it can be any value you want
         name: 'circle-shape3'
       })
-      console.log(cfg, style)
       var keyShape = group.addShape('circle', {
         zIndex: 1,
         attrs: mix(this.options.style, style),
@@ -251,11 +250,14 @@ export default function (G6) {
       } else if (name === 'warning' || name === 'serious') {
         const shape = item.get('keyShape')
         const cfg = this.options
+        const back1 = group.getChildByIndex(0)
+        const back2 = group.getChildByIndex(1)
+        const back3 = group.getChildByIndex(2)
+        let r = cfg.size + 10
+        if (isNaN(r)) {
+          r = cfg.size[0] + 10
+        }
         if (value) {
-          let r = cfg.size + 10
-          if (isNaN(r)) {
-            r = cfg.size[0] + 10
-          }
           let color1, color2, color3
           if (name === 'serious') {
             color1 = 'yellow'
@@ -263,16 +265,12 @@ export default function (G6) {
             color3 = 'red'
           }
 
-          const back1 = group.getChildByIndex(0)
-          const back2 = group.getChildByIndex(1)
-          const back3 = group.getChildByIndex(2)
-
           // 第一个背景圆逐渐放大，并消失
           back1.animate(
             {
               r: r + 10,
-              opacity: 0.1
-              // fill: color1 || ''
+              opacity: 0.1,
+              fill: color1 || ''
             },
             {
               repeat: true, // 循环
@@ -314,7 +312,12 @@ export default function (G6) {
         } else {
           // running 状态为 false 时
           // 结束动画
-          shape.stopAnimate()
+          back1.stopAnimate()
+          back2.stopAnimate()
+          back3.stopAnimate()
+          back1.attr({ r: r, opacity: 1 })
+          back2.attr({ r: r, opacity: 1 })
+          back3.attr({ r: r, opacity: 1 })
         }
       } else if (name === 'selected') {
         const keyShape = group.getChildByIndex(3)

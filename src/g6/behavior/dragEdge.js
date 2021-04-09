@@ -55,7 +55,6 @@ export default function (G6) {
       }
     },
     onDragEnter (e) {
-      console.log(e.type, e.name, e.target, e.target.cfg.className)
       if (!this.origin) {
         return
       }

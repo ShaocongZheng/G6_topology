@@ -18,7 +18,11 @@ export default function (G6) {
     },
     onClick (e) {
       if (e.target) {
-        this.graph.setItemState(e.target, 'selected', true)
+        if (e.select) {
+          this.graph.setItemState(e.target, 'selected', true)
+        } else {
+          this.graph.setItemState(e.target, 'selected', false)
+        }
       }
 
       console.log(e)

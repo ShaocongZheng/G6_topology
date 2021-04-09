@@ -87,7 +87,12 @@ var DragPanel =
         if (e.target.tagName === 'IMG') {
           const addModel = e.target.dataset
           console.log(addModel)
-          let model = {}
+          let model = {
+            label: 'server',
+            mainType: addModel.maintype,
+            type: addModel.type,
+            img: addModel.img
+          }
           if (addModel.moduletype === 'server') {
             model = {
               label: 'server',

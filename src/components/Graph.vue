@@ -173,6 +173,9 @@ export default {
     this.graph.on('node:dragend', e => {
       e.item.getContainer().set('capture', true)
     })
+    window.onresize = () => {
+      this.graph.changeSize(document.getElementById('canvas').clientWidth, document.getElementById('canvas').scrollHeight || 500)
+    }
   },
   methods: {
     initDragEvent () {

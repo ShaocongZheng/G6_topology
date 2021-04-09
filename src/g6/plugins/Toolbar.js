@@ -434,6 +434,11 @@ var ToolBar =
           graph.fitView([20, 20])
           break
 
+        case 'exportImg':
+          console.log('export')
+          graph.downloadFullImage()
+          break
+
         default:
       }
     }
