@@ -55,7 +55,10 @@ $toolbar-height: 40px;
         <span :class="'iconfont ' + item.icon" style="line-height:40px"></span>
       </li>
       <li code="exportImg">
-        <el-button plain size="small" :autofocus="false">导出图片</el-button>
+        <el-button plain size="small">导出图片</el-button>
+      </li>
+      <li>
+        <el-button plain size="small">部署方案</el-button>
       </li>
     </ul>
   </div>
@@ -117,7 +120,7 @@ export default {
     }
   },
   mounted () {
-
+    this.initShortCuts()
   },
   methods: {
     // handleToolbarClick (code) {
@@ -136,6 +139,14 @@ export default {
     //       console.log('default end')
     //   }
     // }
+    initShortCuts () {
+      document.onkeydown = function (e) {
+        console.log(e)
+        if (e.ctrlKey && e.key === 's') {
+          console.log('aa')
+        }
+      }
+    }
   }
 }
 </script>

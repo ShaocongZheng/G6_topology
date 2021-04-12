@@ -72,21 +72,13 @@ $form-font-size: 8px;
               <el-form-item label="模块名称">
                 <el-input v-model='selectedNode.label' @change="modelChange"></el-input>
               </el-form-item>
-              <el-form-item label="英文名称">
-                <el-input v-model='selectedNode.enName'></el-input>
-              </el-form-item>
-              <el-form-item label="描述">
-                <el-input v-model='selectedNode.desc'></el-input>
-              </el-form-item>
-              <el-form-item :label="name" v-for="(value, name) in selectedModel.data" :key="name">
-                <el-input v-model='selectedNode.data[name]'></el-input>
-              </el-form-item>
-              <el-form-item label="机房">
-                <el-input v-model='selectedNode.machineRoom'></el-input>
-              </el-form-item>
-              <el-form-item label="区域">
-                <el-input v-model='selectedNode.zone'></el-input>
-              </el-form-item>
+              <template v-for="(value, name) in selectedModel.data" >
+                <el-form-item :label="zh_CN[name]" :key="name">
+                  <el-input v-model='selectedNode.data[name]'>
+                    <template slot="append" v-if="unitDict[name]">{{unitDict[name]}}</template>
+                  </el-input>
+                </el-form-item>
+              </template>
             </el-form>
           </el-collapse-item>
 
@@ -122,6 +114,7 @@ $form-font-size: 8px;
   </div>
 </template>
 <script>
+import zh_CN from '../utils/zh_CN'
 export default {
   data () {
     return {
@@ -136,6 +129,12 @@ export default {
           fill: '',
           stroke: ''
         }
+      },
+      zh_CN: zh_CN,
+      unitDict: {
+        cpu: '核',
+        memory: 'GB',
+        hardDrive: 'GB'
       }
     }
   },
