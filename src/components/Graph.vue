@@ -91,6 +91,11 @@ export default {
             size: 30,
             type: 'image',
             img: require('../assets/images/icon/云存储_cloud-storage.svg')
+          },
+          {
+            id: '20',
+            type: 'baseControl',
+            label: 'control'
           }
         ],
         edges: [
@@ -126,7 +131,7 @@ export default {
         width: width, // Number，必须，图的宽度
         height: height,
         defaultNode: {
-          type: 'iconCircle',
+          type: 'baseControl',
           // 其他配置
           size: 60,
           iconSize: 30,
@@ -146,7 +151,8 @@ export default {
             offset: 10
           },
           style: {
-            ...defaultStyle.nodeStateStyle.default
+            // ...defaultStyle.nodeStateStyle.default
+            fill: 'transparent'
           }
         },
         defaultCombo: defaultStyle.defaultCombo,
@@ -158,13 +164,13 @@ export default {
             'drag-combo',
             'dragEdge',
             'collapse-expand-combo',
-            'dragToAddItem',
-            'hoverNodeActived',
-            {
-              type: 'click-select',
-              multiple: true,
-              trigger: 'shift'
-            }
+            'dragToAddItem'
+            // 'hoverNodeActived',
+            // {
+            //   type: 'click-select',
+            //   multiple: true,
+            //   trigger: 'shift'
+            // }
           ],
           view: [],
           edit: [
