@@ -26,6 +26,7 @@
       <div id="canvas" ref="canvas" class="canvasPanel"></div>
       <config-panel :graph="graph"></config-panel>
     </div>
+    <hover-ball hidden="true"></hover-ball>
   </div>
 </template>
 <script>
@@ -37,12 +38,14 @@ import G6Register from '../g6'
 import defaultStyle from '../g6/config/defaultStyle'
 import ToolBarPlugin from '../g6/plugins/Toolbar'
 import DragPanelPlugin from '../g6/plugins/DragPanel'
+import HoverBall from './HoverBall'
 G6Register(G6)
 export default {
   components: {
     ItemPanel: ItemPanel,
     ToolBar: ToolBar,
-    ConfigPanel: ConfigPanel
+    ConfigPanel: ConfigPanel,
+    HoverBall: HoverBall
   },
   data () {
     return {
